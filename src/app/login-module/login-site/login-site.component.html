@@ -1,0 +1,46 @@
+<div class="background">
+</div>
+
+<div class="login-wrapper">
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="login">
+
+    <div class="logo">
+    </div>
+
+    <label class="title">
+      <br>
+      <span class="appIntro">Hospital meals app</span>
+      <h5 class="hint">Użyj swojego loginu i hasła aby się zalogować</h5>
+    </label>
+
+    <div class="login-group">
+      <mat-form-field>
+        <label>
+          <input matInput
+                 required
+                 [(ngModel)]="user.username"
+                 class="username"
+                 name="username"
+                 type="text"
+                 placeholder="Login">
+        </label>
+      </mat-form-field>
+      <mat-form-field>
+        <label>
+          <input matInput
+                 required
+                 [(ngModel)]="user.password"
+                 class="password"
+                 name="password"
+                 type="password"
+                 placeholder="Hasło">
+        </label>
+      </mat-form-field>
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.form.invalid">
+        Zaloguj
+      </button>
+    </div>
+
+  </form>
+</div>
+
