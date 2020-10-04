@@ -10,4 +10,4 @@ import { NurseMainComponent } from './nurse-main/nurse-main.component';
     CommonModule
   ]
 })
-export class WardNurseModuleModule { }
+export class WardNurseModule { }

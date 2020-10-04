@@ -15,7 +15,7 @@ export class ApiService implements CanActivate {
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
-  canActivate() {
+  canActivate(): boolean {
     if (this.accessToken !== '' && this.refreshToken !== '') {
       console.log(this.role);
       return true;
@@ -24,7 +24,7 @@ export class ApiService implements CanActivate {
     return false;
   }
 
-  login(url: string, user: any) {
+  login(url: string, user: any): any {
     console.log(this.apiURL + url);
     return this.httpClient.post(this.apiURL + url, user, {observe: 'response'}).pipe(
       map(response => {
@@ -52,7 +52,7 @@ export class ApiService implements CanActivate {
     return this.role;
   }
 
-  async get(url: string) {
+  async get(url: string): Promise<any> {
     console.log(this.apiURL + url);
 
     let dataBaseObject;
@@ -74,7 +74,7 @@ export class ApiService implements CanActivate {
     return dataBaseObject;
   }
 
-  async getCv(url: string) {
+  async getCv(url: string): Promise<any> {
     console.log(this.apiURL + url);
 
     let dataBaseObject;
@@ -101,7 +101,7 @@ export class ApiService implements CanActivate {
     return dataBaseObject;
   }
 
-  async post(url: string, body: any) {
+  async post(url: string, body: any): Promise<any> {
     console.log(this.apiURL + url);
 
     let dataBaseObject;
@@ -122,7 +122,7 @@ export class ApiService implements CanActivate {
     return dataBaseObject;
   }
 
-  async put(url: string, body: any) {
+  async put(url: string, body: any): Promise<any> {
     console.log(this.apiURL + url);
 
     let dataBaseObject;
@@ -150,8 +150,8 @@ export class ApiService implements CanActivate {
     this.router.navigateByUrl('login');
   }
 
-  private async refreshAccessToken() {
-    console.log('refresing token');
+  private async refreshAccessToken(): Promise<any> {
+    console.log('refreshing token');
     const headers1 = new HttpHeaders({Refresh: this.refreshToken});
     await this.httpClient.post(this.apiURL + '/logins/refresh', '', {headers: headers1, observe: 'response'})
       .pipe(map(resp => {

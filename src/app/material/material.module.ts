@@ -15,9 +15,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
@@ -44,7 +44,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatPaginatorModule,
     ScrollingModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+
   ],
   exports: [
     BrowserAnimationsModule,

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KitchenMainComponent implements OnInit {
 
+  timestamp = '2017-04-12 21:46:20';
   constructor() { }
 
   ngOnInit(): void {

@@ -10,4 +10,4 @@ import { DietitianMainComponent } from './dietitian-main/dietitian-main.componen
     CommonModule
   ]
 })
-export class WardDietitianModuleModule { }
+export class WardDietitianModule { }
