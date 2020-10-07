@@ -10,9 +10,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {LoginModuleModule} from './login-module/login-module.module';
-import {KitchenMainComponent} from './kitchen-dietitian-module/kitchen-main/kitchen-main.component';
 import {KitchenDietitianModule} from './kitchen-dietitian-module/kitchen-dietitian-module.module';
 import {PatientMovementModule} from './patient-movement-module/patient-movement-module.module';
+import {WardDietitianModule} from './ward-dietitian-module/ward-dietitian-module.module';
 
 
 @NgModule({
@@ -32,7 +32,8 @@ import {PatientMovementModule} from './patient-movement-module/patient-movement-
     MatTooltipModule,
     LoginModuleModule,
     KitchenDietitianModule,
-    PatientMovementModule
+    PatientMovementModule,
+    WardDietitianModule
   ],
   entryComponents: [],
   exports: [

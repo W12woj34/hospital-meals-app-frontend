@@ -1,0 +1,78 @@
+.topBar{
+  position: relative;
+}
+
+.background {
+  background-image: url("background.jpg");
+  background-size: auto;
+  background-repeat: repeat;
+  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+
+.frame {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+
+.layout {
+
+  font-size: 30vh;
+  background: #fafafa;
+  position: relative;
+  flex-direction: column;
+  justify-content: normal;
+  padding: 1rem 2.5rem;
+  height: auto;
+  min-height: 100vh;
+  min-width: fit-content;
+  display: flex;
+  margin-left: 0;
+  margin-right: auto;
+  width: 60vw;
+  font-family: Metropolis, Avenir Next, Helvetica Neue, Arial, sans-serif;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 1px;
+}
+
+.topSite{
+  justify-content: space-between;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+}
+
+.choose{
+display: flex;
+  width: fit-content;
+}

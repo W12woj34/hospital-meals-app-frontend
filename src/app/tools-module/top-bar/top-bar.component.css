@@ -41,13 +41,17 @@ h1 {
     font-size: 16px;
 
   }
+
+  .material-icons {
+    font-size: 36px;
+
+  }
+
+  h1 {
+    line-height: 75%
+  }
+
 }
 
-  @media screen and (max-height: 600px) {
-    .material-icons {
-      font-size: 36px;
-
-    }
-}
 
 
