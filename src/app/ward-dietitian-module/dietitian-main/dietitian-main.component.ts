@@ -3,8 +3,11 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {FormControl} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {DietitianPatientDetailsComponent} from '../dietitian-patient-details/dietitian-patient-details.component';
 
 export interface UserData {
+  idPatient: string;
   pesel: string;
   firstName: string;
   lastName: string;
@@ -40,18 +43,19 @@ export class DietitianMainComponent implements OnInit {
   bufferDataSource;
   dataSource: MatTableDataSource<UserData>;
   users;
-  selectedWards = LAST_NAMES;
+  selectedWards = WARDS;
   selectedDiets = DIETA;
   dietList = DIETA;
   wardList = WARDS;
   diets = new FormControl();
   wards = new FormControl();
   filterValue = '';
+  dialogResult;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     // Create 100 users
     this.users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
     this.bindData();
@@ -105,9 +109,19 @@ export class DietitianMainComponent implements OnInit {
 
   }
 
-  openPopup(row: any): void {
-    row.progress = 0;
+  openPopup(id: string): void {
+    const dialogRef = this.dialog.open(DietitianPatientDetailsComponent, {
+      minWidth: '50%',
+      data: {id, result: this.dialogResult}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogResult = result;
+      console.log('The dialog was closed');
+      console.log(this.dialogResult);
+    });
   }
+
 
   filterDiets($event: boolean): void {
 
@@ -123,8 +137,8 @@ export class DietitianMainComponent implements OnInit {
 
   private predicateData(): void {
     this.bufferDataSource = this.users.map(x => Object.assign({}, x))
-      .filter(x => this.selectedDiets.includes(x.diet));
-    this.bufferDataSource.filter(x => this.selectedWards.includes(x.ward));
+      .filter(x => this.selectedDiets.includes(x.diet))
+      .filter(x => this.selectedWards.includes(x.ward));
     this.dataSource = new MatTableDataSource(this.bufferDataSource);
     setTimeout(() => this.dataSource.paginator = this.paginator);
     setTimeout(() => this.dataSource.sort = this.sort);
@@ -142,6 +156,7 @@ export class DietitianMainComponent implements OnInit {
 function createNewUser(pesel: number): UserData {
 
   return {
+    idPatient: pesel.toString(),
     pesel: pesel.toString(),
     firstName: FIRST_NAMES[Math.round(Math.random() * (FIRST_NAMES.length - 1))],
     lastName: LAST_NAMES[Math.round(Math.random() * (LAST_NAMES.length - 1))],

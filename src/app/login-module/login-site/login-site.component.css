@@ -14,7 +14,7 @@
   width: 200px;
   height: 200px;
   background-image: url("logo.png");
-  background-size: auto;
+  background-size: cover;
   background-repeat: no-repeat;
   opacity: 1;
   position: center;
