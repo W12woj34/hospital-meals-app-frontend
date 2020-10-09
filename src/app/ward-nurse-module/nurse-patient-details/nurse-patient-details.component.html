@@ -1,0 +1,106 @@
+<mat-dialog-content>
+  <section>
+    <div class="inLineTop">
+  <span>
+      <br>
+      <br>
+      <h3>
+      Imię: {{patient.firstName}}<br/>
+      Nazwisko: {{patient.lastName}}<br/>
+      Pesel: {{patient.pesel}}<br/>
+      Data urodzenia: {{patient.birthDate}}<br/>
+      Oddział: {{patient.ward}}<br/>
+      </h3>
+
+  </span>
+      <span><h1>Pacjent</h1></span>
+      <span class="rightSide">
+            <br>
+      <br>
+      <h3>Informacje dodatkowe</h3>
+        {{patient.additionalInfo}}
+</span>
+    </div>
+  </section>
+  <br>
+  <section>
+
+    <h2>Diety</h2>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSourceDiet" matSort>
+
+        <ng-container matColumnDef="diet">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Dieta</th>
+          <td mat-cell *matCellDef="let row"> {{row.diet}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateFrom">
+          <th mat-header-cell *matHeaderCellDef> Od</th>
+          <td mat-cell *matCellDef="let row"> {{row.dateFrom}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateTo">
+          <th mat-header-cell *matHeaderCellDef> Do</th>
+          <td mat-cell *matCellDef="let row"> {{row.dateTo}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsDiet"></tr>
+        <tr mat-row class="example-element-row" *matRowDef="let row; columns: displayedColumnsDiet;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">Brak wyników spełniających kryteria</td>
+        </tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5]"></mat-paginator>
+    </div>
+  </section>
+  <br>
+  <br>
+  <section>
+    <h2>Pobyty</h2>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSourceStay" matSort>
+
+        <ng-container matColumnDef="ward">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Oddział</th>
+          <td mat-cell *matCellDef="let row"> {{row.ward}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateFrom">
+          <th mat-header-cell *matHeaderCellDef> Pobyt od</th>
+          <td mat-cell *matCellDef="let row"> {{row.dateFrom}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateTo">
+          <th mat-header-cell *matHeaderCellDef> Pobyt do</th>
+          <td mat-cell *matCellDef="let row"> {{row.dateTo}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsStay"></tr>
+        <tr mat-row class="example-element-row" *matRowDef="let row; columns: displayedColumnsStay;">
+        </tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">Brak wyników spełniających kryteria</td>
+        </tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5]"></mat-paginator>
+    </div>
+  </section>
+  <br>
+  <br>
+  <section>
+    <div>
+  <span>
+<button mat-icon-button title="Wróć" class="backBtn" (click)="onBack()" color="secondary"><mat-icon
+  class="bottomIcon backColor">arrow_back</mat-icon></button>
+        <button mat-icon-button class="dischargeBtn" title="Wypisz" (click)="onDischarge()"><mat-icon
+          class="bottomIcon dischargeColor">person_remove</mat-icon><br/> <p class="dischargeText">Wypisz</p></button>
+  </span>
+    </div>
+  </section>
+  <br>
+</mat-dialog-content>

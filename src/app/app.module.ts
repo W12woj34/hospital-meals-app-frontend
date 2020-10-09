@@ -13,6 +13,7 @@ import {LoginModuleModule} from './login-module/login-module.module';
 import {KitchenDietitianModule} from './kitchen-dietitian-module/kitchen-dietitian-module.module';
 import {PatientMovementModule} from './patient-movement-module/patient-movement-module.module';
 import {WardDietitianModule} from './ward-dietitian-module/ward-dietitian-module.module';
+import {WardNurseModule} from './ward-nurse-module/ward-nurse-module.module';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {WardDietitianModule} from './ward-dietitian-module/ward-dietitian-module
     LoginModuleModule,
     KitchenDietitianModule,
     PatientMovementModule,
-    WardDietitianModule
+    WardDietitianModule,
+    WardNurseModule
   ],
   entryComponents: [],
   exports: [

@@ -1,0 +1,88 @@
+.inLineTop {
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+}
+
+mat-form-field {
+  margin-right: 12px;
+}
+
+.rightSide{
+  width: 40%;
+}
+
+span{
+  font-family: Metropolis, Avenir Next, Helvetica Neue, Arial, sans-serif;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h2{
+  font-size: 24px;
+}
+
+.bottomIcon{
+  font-size: 64px;
+}
+
+.dischargeBtn{
+  float: right;
+  margin-right: 40px;
+}
+
+.backBtn{
+  float: left;
+}
+.inLineBottom{
+  justify-content: space-between;
+  display: flex;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.example-element-row td, .element-row-click td {
+  border-bottom-width: 1px;
+}
+
+tr.element-row-click:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.element-row-click:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+mat-dialog-content {
+  background: #fafafa;
+  height: 100vh;
+}
+
+
+
+.dischargeColor{
+  color: #E53935;
+}
+
+.backColor{
+  color: #1A237E;
+}
+
+.dischargeText {
+  margin-right: auto;
+  margin-left: 10px;
+}
+

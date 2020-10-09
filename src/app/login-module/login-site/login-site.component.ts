@@ -21,7 +21,7 @@ export class LoginSiteComponent implements OnInit {
   onSubmit(form): void {
     // console.log(this.user, form.form._value)
     // this.user$.loginUser(this.user)
-    this.router.navigateByUrl('wardDietitian');
+    this.router.navigateByUrl('wardNurse');
     return;
 
     this.api.login('/login', this.user).subscribe(
