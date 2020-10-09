@@ -1,0 +1,71 @@
+<mat-dialog-content>
+  <mat-slide-toggle
+    [(ngModel)]="firstTime"
+    [color]="color"
+    class="slider">
+    Czy jest to pierwsza wizyta pacjenta w tym szpitalu?
+  </mat-slide-toggle>
+  <br>
+  <br>
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="register">
+    <div class="patientData">
+      <mat-form-field>
+        <label>
+          <input matInput
+                 required
+                 [(ngModel)]="patient.pesel"
+                 class="pesel"
+                 name="pesel"
+                 type="text"
+                 placeholder="pesel">
+        </label>
+      </mat-form-field>
+      <br>
+      <div *ngIf="firstTime">
+      <mat-form-field>
+        <label>
+          <input matInput
+                 required
+                 [(ngModel)]="patient.firstName"
+                 class="firstName"
+                 name="firstName"
+                 type="text"
+                 placeholder="Imię">
+        </label>
+      </mat-form-field>
+        <br>
+        <mat-form-field>
+          <label>
+            <input matInput
+                   required
+                   [(ngModel)]="patient.lastName"
+                   class="lastName"
+                   name="lastName"
+                   type="text"
+                   placeholder="Nazwisko">
+          </label>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Data Urodzenia</mat-label>
+          <input matInput
+                 required
+                 [matDatepicker]="picker"
+                 [(ngModel)]="patient.birthDate">
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+        </mat-form-field>
+        <br>
+
+
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.form.invalid">
+        Zarejestruj
+      </button>
+    </div>
+
+  </form>
+</mat-dialog-content>
