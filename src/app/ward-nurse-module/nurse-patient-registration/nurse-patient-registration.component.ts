@@ -3,7 +3,6 @@ import {ThemePalette} from '@angular/material/core';
 import {NgForm} from '@angular/forms';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Router} from '@angular/router';
 import {ApiService} from '../../service/api.service';
 
 export interface PatientRegister {
@@ -35,7 +34,7 @@ export class NursePatientRegistrationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(loginForm: NgForm): void {
+  onSubmit(registerForm: NgForm): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       minWidth: 'fit-content',
       data: {result: this.dialogResult}
