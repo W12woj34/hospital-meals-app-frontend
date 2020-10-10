@@ -62,23 +62,25 @@
       </div>
 
       <mat-form-field appearance="fill">
-        <mat-label>Favorite food</mat-label>
-        <mat-select [(ngModel)]="worker.role" name="food">
-          <mat-option *ngFor="let role of roles" [value]="roles">
+        <mat-label>Rola pracownika</mat-label>
+        <mat-select [(ngModel)]="worker.role" name="food"
+                    required>
+          <mat-option *ngFor="let role of roles" [value]="role">
             {{role}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <br>
-      <div *ngIf="isWardNurse()"></div>
+      <div *ngIf="isWardNurse()">
       <mat-form-field appearance="fill">
-        <mat-label>Favorite food</mat-label>
-        <mat-select [(ngModel)]="worker.ward" name="food">
+        <mat-label>Oddział</mat-label>
+        <mat-select [(ngModel)]="worker.ward" name="ward">
           <mat-option *ngFor="let ward of wards" [value]="ward.id">
             {{ward.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+      </div>
       <button type="submit" class="btn btn-primary" [disabled]="workerForm.form.invalid">
         Zarejestruj
       </button>

@@ -7,8 +7,9 @@ import {PatientMovementLogsComponent} from './patient-movement-logs/patient-move
 import {PatientMovementWorkersComponent} from './patient-movement-workers/patient-movement-workers.component';
 import {PatientMovementWorkerDetailsComponent} from './patient-movement-worker-details/patient-movement-worker-details.component';
 import {PatientMovementAddWorkerComponent} from './patient-movement-add-worker/patient-movement-add-worker.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
@@ -22,9 +23,12 @@ import {MatSelectModule} from '@angular/material/select';
     MaterialModule,
     ToolsModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSortModule,
+    ReactiveFormsModule
   ],
-  exports: [MovementMainComponent]
+  exports: [MovementMainComponent],
+  entryComponents: [PatientMovementWorkersComponent, PatientMovementWorkerDetailsComponent]
 })
 export class PatientMovementModule {
 }

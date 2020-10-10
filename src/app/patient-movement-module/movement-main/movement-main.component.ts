@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-movement-main',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MovementMainComponent implements OnInit {
 
-  constructor() { }
+  sheetDate;
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  openLogs(): void {
+    this.router.navigateByUrl('patientMovementLogs');
+  }
+
+  openWorkers(): void  {
+    this.router.navigateByUrl('patientMovementWorkers');
+  }
 }

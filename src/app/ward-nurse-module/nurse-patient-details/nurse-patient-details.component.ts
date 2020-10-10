@@ -1,8 +1,8 @@
-import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Inject, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
 
 export interface Diets {
@@ -68,7 +68,9 @@ export class NursePatientDetailsComponent implements OnInit {
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
 
 
-  constructor(public dialogRef: MatDialogRef<NursePatientDetailsComponent>, public dialog: MatDialog) {
+  constructor(public dialogRef: MatDialogRef<NursePatientDetailsComponent>,
+              public dialog: MatDialog,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dataSourceDiet = new MatTableDataSource(this.diets);
     this.dataSourceStay = new MatTableDataSource(this.stays);
   }

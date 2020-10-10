@@ -1,10 +1,10 @@
-import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, Inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
 
 const DIETA: string[] = [
@@ -64,7 +64,9 @@ export class DietitianPatientDetailsComponent implements OnInit {
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
 
 
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<DietitianPatientDetailsComponent>, public dialog: MatDialog) {
+  constructor(private fb: FormBuilder,
+              public dialogRef: MatDialogRef<DietitianPatientDetailsComponent>,
+              public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dataSourceDiet = new MatTableDataSource(this.diets);
     this.dataSourceRestrictions = new MatTableDataSource(this.restrictions);
   }

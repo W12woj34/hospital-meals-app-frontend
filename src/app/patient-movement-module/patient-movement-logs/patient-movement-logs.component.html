@@ -1,1 +1,95 @@
-<p>patient-movement-logs works!</p>
+<div class="background">
+</div>
+
+<app-top-bar class="topBar"></app-top-bar>
+
+
+<div class="frame">
+  <div class="layout">
+
+
+    <button mat-icon-button title="Wróć" class="backBtn" (click)="goBack()">
+      <mat-icon class="bottomIcon">keyboard_backspace</mat-icon>
+    </button>
+    <p class="iconSignature">Wróć</p>
+    <br>
+
+    <div class="topSite">
+      <span><h1>Logi</h1></span>
+      <span></span>
+      <span></span>
+      <span>
+        <h4>Typ akcji</h4><mat-form-field appearance="fill" class="choose">
+        <mat-label>Typ akcji</mat-label>
+        <mat-select (openedChange)="filterLogs($event)" [formControl]="logs" multiple>
+          <mat-option *ngFor="let log of logList" [value]="log">{{log}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </span>
+      <span>
+        <h4>Rola urzytkownika<br></h4><mat-form-field appearance="fill" class="choose">
+        <mat-label>Rola urzytkownika</mat-label>
+        <mat-select (openedChange)="filterRoles($event)" [formControl]="roles" multiple>
+          <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </span>
+      <span></span>
+    </div>
+
+
+    <mat-form-field>
+      <mat-label>Wyszukiwarka</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="np. Zaktualizowanie" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="idLog">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+          <td mat-cell *matCellDef="let row"> {{row.idLog}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="timestamp">
+          <th mat-header-cell *matHeaderCellDef> Sygnatura czasowa</th>
+          <td mat-cell *matCellDef="let row"> {{row.timestamp}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="target">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Pacjent</th>
+          <td mat-cell *matCellDef="let row"> {{row.target}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="user">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Użytkownik</th>
+          <td mat-cell *matCellDef="let row"> {{row.user}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="log">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Wydażenie</th>
+          <td mat-cell *matCellDef="let row"> {{row.log}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Rola użytkownika</th>
+          <td mat-cell *matCellDef="let row"> {{row.role}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row class="example-element-row" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">Brak wyników spełniających kryteria "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+
+
+  </div>
+</div>
+

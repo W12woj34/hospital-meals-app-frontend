@@ -1,0 +1,34 @@
+.inLineTop {
+  justify-content: space-between;
+  width: 90%;
+  display: flex;
+  margin-top: 10%;
+}
+.bottomIcon{
+  font-size: 120px;
+}
+
+mat-dialog-content {
+  background: #fafafa;
+  height: 100vh;
+}
+
+
+h3 {
+  font-size: 18px;
+}
+
+.iconText{
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 800px) {
+  .bottomIcon {
+    font-size: 64px;
+  }
+  .iconText{
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+}

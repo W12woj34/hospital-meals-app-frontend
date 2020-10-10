@@ -16,7 +16,7 @@ export interface Worker {
 }
 
 const ROLES: string[] = [
-  'Dietetyczka Oddziałowa', 'Ruch Chorych', 'Dietetyczka Kuchnii', 'Pielęgniarka Oddziałowa'
+  'Dietetyczka Oddziałowa', 'Ruch Chorych', 'Dietetyczka Kuchni', 'Pielęgniarka Oddziałowa'
 ];
 
 const WARDS: Ward[] = [

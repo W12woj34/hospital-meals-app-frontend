@@ -28,14 +28,16 @@ h2{
   font-size: 64px;
 }
 
+.dismissBtn{
+  float: left;
+}
+
 .confirmBtn{
 float: right;
   margin-right: 40px;
 }
 
-.dismissBtn{
-  float: left;
-}
+
 .inLineBottom{
   justify-content: space-between;
   display: flex;

@@ -1,1 +1,41 @@
-<p>patient-movement-worker-details works!</p>
+<mat-dialog-content>
+  <section>
+    <span><h1>Pracownik</h1></span>
+    <br>
+    <h3>
+      Imię: {{worker.firstName}}<br/>
+      Nazwisko: {{worker.lastName}}<br/>
+      Pesel: {{worker.pesel}}<br/>
+      Data urodzenia: {{worker.birthDate}}<br/>
+      Funkcja: {{worker.role}}<br/>
+      <div *ngIf="isWardNurse()">
+        Oddział: {{worker.ward}}<br/>
+      </div>
+    </h3>
+  </section>
+  <br>
+  <br>
+  <section>
+    <div class="inLineTop">
+      <span>
+        <button mat-icon-button title="Zwolnij" class="lowerBtn" (click)="onFire()"><mat-icon
+          class="bottomIcon" color="warn">person_remove</mat-icon>
+        </button>
+        <p class="iconText">Zwolnij</p>
+      </span>
+      <span>
+        <button mat-icon-button class="lowerBtn" title="Zmień hasło" (click)="onPassChange()"><mat-icon
+          class="bottomIcon" color="accent">vpn_key</mat-icon><br/>
+        </button>
+        <p class="iconText">Zmień hasło</p>
+      </span>
+      <span>
+        <button mat-icon-button class="lowerBtn" title="Zatwierdź" (click)="onConfirm()"><mat-icon
+          class="bottomIcon" color="primary">check</mat-icon><br/>
+        </button>
+        <p class="iconText">Zatwierdź</p>
+      </span>
+    </div>
+  </section>
+  <br>
+</mat-dialog-content>
