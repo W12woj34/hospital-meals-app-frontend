@@ -1,23 +1,23 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {ApiService} from '../../service/api.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ApiService} from '../../service/api.service';
+import {FormControl, FormGroup} from '@angular/forms';
+import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'app-password-change',
-  templateUrl: './password-change.component.html',
-  styleUrls: ['./password-change.component.css']
+  selector: 'app-patient-movement-worker-password-change',
+  templateUrl: './patient-movement-worker-password-change.component.html',
+  styleUrls: ['./patient-movement-worker-password-change.component.css']
 })
-export class PasswordChangeComponent implements OnInit {
+export class PatientMovementWorkerPasswordChangeComponent implements OnInit {
 
   formGroup: FormGroup = new FormGroup({});
   dialogResult;
 
   constructor(private api: ApiService,
               private snackBar: MatSnackBar,
-              public dialogRef: MatDialogRef<PasswordChangeComponent>,
+              public dialogRef: MatDialogRef<PatientMovementWorkerPasswordChangeComponent>,
               public dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -25,7 +25,6 @@ export class PasswordChangeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.formGroup.addControl('oldPassword', new FormControl());
     this.formGroup.addControl('newPassword', new FormControl());
     this.formGroup.addControl('newPasswordConfirm', new FormControl());
 

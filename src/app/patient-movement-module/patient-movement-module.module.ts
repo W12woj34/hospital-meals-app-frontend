@@ -10,6 +10,7 @@ import {PatientMovementAddWorkerComponent} from './patient-movement-add-worker/p
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSortModule} from '@angular/material/sort';
+import { PatientMovementWorkerPasswordChangeComponent } from './patient-movement-worker-password-change/patient-movement-worker-password-change.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {MatSortModule} from '@angular/material/sort';
     PatientMovementLogsComponent,
     PatientMovementWorkersComponent,
     PatientMovementWorkerDetailsComponent,
-    PatientMovementAddWorkerComponent],
+    PatientMovementAddWorkerComponent,
+    PatientMovementWorkerPasswordChangeComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -28,7 +30,7 @@ import {MatSortModule} from '@angular/material/sort';
     ReactiveFormsModule
   ],
   exports: [MovementMainComponent],
-  entryComponents: [PatientMovementWorkersComponent, PatientMovementWorkerDetailsComponent]
+  entryComponents: [PatientMovementWorkersComponent, PatientMovementWorkerDetailsComponent, PatientMovementWorkerPasswordChangeComponent]
 })
 export class PatientMovementModule {
 }
