@@ -9,21 +9,23 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NursePatientDetailsComponent} from './nurse-patient-details/nurse-patient-details.component';
 import { NursePatientRegistrationComponent } from './nurse-patient-registration/nurse-patient-registration.component';
 import { NurseMealsOrdersComponent } from './nurse-meals-orders/nurse-meals-orders.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
 
 @NgModule({
   declarations: [NurseMainComponent, NursePatientDetailsComponent, NursePatientRegistrationComponent, NurseMealsOrdersComponent],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    ToolsModule,
-    MatSortModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
+    imports: [
+        CommonModule,
+        MaterialModule,
+        ToolsModule,
+        MatSortModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatCheckboxModule
+    ],
   entryComponents: [NurseMainComponent, NursePatientDetailsComponent]
 })
 export class WardNurseModule { }

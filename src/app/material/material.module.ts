@@ -20,6 +20,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
