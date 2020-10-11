@@ -42,7 +42,7 @@ const DIETA: string[] = [
 })
 export class NurseMainComponent implements OnInit {
 
-  displayedColumns: string[] = ['pesel', 'firstName', 'lastName', 'dateFrom', 'diet'];
+  displayedColumns: string[] = ['idPatient', 'pesel', 'firstName', 'lastName', 'dateFrom', 'diet'];
   bufferDataSource;
   dataSource: MatTableDataSource<UserData>;
   users;

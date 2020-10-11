@@ -41,6 +41,11 @@
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
 
+        <ng-container matColumnDef="idPatient">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+          <td mat-cell *matCellDef="let row"> {{row.idPatient}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="pesel">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Pesel</th>
           <td mat-cell *matCellDef="let row"> {{row.pesel}} </td>
