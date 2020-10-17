@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ApiService} from '../../service/api.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
@@ -15,7 +14,7 @@ export class PatientMovementWorkerPasswordChangeComponent implements OnInit {
   formGroup: FormGroup = new FormGroup({});
   dialogResult;
 
-  constructor(private api: ApiService,
+  constructor(
               private snackBar: MatSnackBar,
               public dialogRef: MatDialogRef<PatientMovementWorkerPasswordChangeComponent>,
               public dialog: MatDialog,

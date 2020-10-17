@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {ApiService} from '../../service/api.service';
 import {NgForm} from '@angular/forms';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
-import {Ward} from '../../dataBaseObjects/Ward';
+import {Ward} from '../../dataBaseObjects/ward';
 
 export interface Worker {
   pesel: number;
@@ -38,8 +37,7 @@ export class PatientMovementAddWorkerComponent implements OnInit {
   dialogResult;
 
   constructor(public dialogRef: MatDialogRef<PatientMovementAddWorkerComponent>,
-              public dialog: MatDialog,
-              private api: ApiService) {
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {

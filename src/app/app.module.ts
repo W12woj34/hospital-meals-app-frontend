@@ -9,7 +9,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {LoginModuleModule} from './login-module/login-module.module';
+import {LoginModule} from './login-module/login-module.module';
 import {KitchenDietitianModule} from './kitchen-dietitian-module/kitchen-dietitian-module.module';
 import {PatientMovementModule} from './patient-movement-module/patient-movement-module.module';
 import {WardDietitianModule} from './ward-dietitian-module/ward-dietitian-module.module';
@@ -31,7 +31,7 @@ import {WardNurseModule} from './ward-nurse-module/ward-nurse-module.module';
     NgbModule,
     BrowserAnimationsModule,
     MatTooltipModule,
-    LoginModuleModule,
+    LoginModule,
     KitchenDietitianModule,
     PatientMovementModule,
     WardDietitianModule,

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {ApiService} from '../../service/api.service';
-import {User} from '../../dataBaseObjects/User';
+import {User} from '../../dataBaseObjects/user';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-login-site',
@@ -12,30 +12,27 @@ export class LoginSiteComponent implements OnInit {
 
   user: User = {username: '', password: ''};
 
-  constructor(private router: Router, private api: ApiService) {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
   ngOnInit(): void {
   }
 
   onSubmit(form): void {
-    // console.log(this.user, form.form._value)
-    // this.user$.loginUser(this.user)
-    this.router.navigateByUrl('wardNurse');
-    return;
 
-    this.api.login('/login', this.user).subscribe(
-      (r => {
-        if (this.api.getRole() === 'ROLE_MOVEMENT') {
+    this.authService.login(this.user).subscribe(
+      (_ => {
+        if (this.authService.getLoggedUser() === 'ROLE_MOVEMENT') {
           this.router.navigateByUrl('patientMovement');
-        } else if (this.api.getRole() === 'ROLE_NURSE') {
+        } else if (this.authService.getLoggedUser() === 'ROLE_NURSE') {
           this.router.navigateByUrl('wardNurse');
-        } else if (this.api.getRole() === 'ROLE_KITCHEN') {
+        } else if (this.authService.getLoggedUser() === 'ROLE_KITCHEN') {
           this.router.navigateByUrl('kitchenDietitian');
-        } else if (this.api.getRole() === 'ROLE_DIETITIAN') {
+        } else if (this.authService.getLoggedUser() === 'ROLE_DIETITIAN') {
           this.router.navigateByUrl('wardDietitian');
 
         }
       }));
+
   }
 }

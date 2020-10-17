@@ -11,16 +11,17 @@
 
   <span><div>
     <h1>
-      Imie Nazwisko
-    <br>
-      Funkcja
+      {{employee.firstName}} {{employee.lastName}}
+      <br>
+      {{employee.role}} {{employee.ward}}
     </h1>
   </div></span>
 
   <span>
-    <a href="/login"><button title="Wyloguj" mat-button><span class="button-span-color"><span class="material-icons">
-      power_settings_new
-</span></span></button></a>
+    <button mat-icon-button class="lowerBtn" title="Zatwierdź" (click)="logout()"><mat-icon
+      class="material-icons">power_settings_new</mat-icon>
+    </button>
+
 
   </span>
 </mat-toolbar>

@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
 import {PasswordChangeComponent} from '../../tools-module/password-change/password-change.component';
-import {Ward} from '../../dataBaseObjects/Ward';
+import {Ward} from '../../dataBaseObjects/ward';
 import {PatientMovementWorkerPasswordChangeComponent} from '../patient-movement-worker-password-change/patient-movement-worker-password-change.component';
 
 export interface WorkerData {

@@ -3,7 +3,6 @@ import {ThemePalette} from '@angular/material/core';
 import {NgForm} from '@angular/forms';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {ApiService} from '../../service/api.service';
 
 export interface PatientRegister {
   pesel: string;
@@ -27,8 +26,7 @@ export class NursePatientRegistrationComponent implements OnInit {
   dialogResult;
 
   constructor(public dialogRef: MatDialogRef<NursePatientRegistrationComponent>,
-              public dialog: MatDialog,
-              private api: ApiService) {
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {

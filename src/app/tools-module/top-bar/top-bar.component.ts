@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {PasswordChangeComponent} from '../password-change/password-change.component';
+import {EmployeeData} from '../../dataBaseObjects/employee-data';
+import {EmployeeService} from '../../service/base/employee.service';
+import {AuthService} from '../../login-module/services/auth.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -10,9 +13,15 @@ import {PasswordChangeComponent} from '../password-change/password-change.compon
 export class TopBarComponent implements OnInit {
 
   dialogResult;
-  constructor(public dialog: MatDialog) { }
+  employee: EmployeeData;
+  constructor(public dialog: MatDialog,
+              private employeeService: EmployeeService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
+
+    this.employeeService.getEmployeeData('data/personal')
+      .subscribe(employee => this.employee = employee);
   }
 
   onPassChange(): void {
@@ -32,5 +41,9 @@ export class TopBarComponent implements OnInit {
 
     // tu trzeba będzie zapisać wszystko
 
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }
