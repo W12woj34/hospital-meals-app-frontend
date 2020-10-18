@@ -70,7 +70,7 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row class="example-element-row" *matRowDef="let row; columns: displayedColumns;"
-            (click)="openPopup(row.patientId)"></tr>
+            (click)="openPopup(row.id)"></tr>
 
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>

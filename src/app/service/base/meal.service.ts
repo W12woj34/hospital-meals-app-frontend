@@ -18,7 +18,6 @@ export class MealService extends BaseSpecificationService<Meal, number> {
 
   getMealOrders(page: number = BaseService.DEFAULT_PAGE,
                 pageSize: number = BaseService.DEFAULT_PAGE_SIZE,
-                ward: number,
                 sortFields?: string[]
   ): Observable<Page<PatientMealOrder>> {
 
@@ -29,7 +28,7 @@ export class MealService extends BaseSpecificationService<Meal, number> {
     if (sortFields) {
       httpParams = httpParams.set('sort', sortFields.toString());
     }
-    const url = `${this.apiURL}/${this.endpoint}/meals-order/${ward.toString()}`;
+    const url = `${this.apiURL}/${this.endpoint}/meal-order`;
     return this.http.get<Page<PatientMealOrder>>(url, {params: httpParams})
       .pipe(
         tap(x => console.log(`fetched ${x.content.length} dtos from ${url}?${httpParams.toString()}`)),

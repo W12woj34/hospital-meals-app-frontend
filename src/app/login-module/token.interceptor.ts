@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
-import { AuthService } from './services/auth.service';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, filter, take, switchMap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse} from '@angular/common/http';
+import {AuthService} from './services/auth.service';
+import {Observable, throwError, BehaviorSubject} from 'rxjs';
+import {catchError, filter, take, switchMap} from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -10,7 +10,8 @@ export class TokenInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService) {
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -28,16 +29,26 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   private addToken(request: HttpRequest<any>, token: string): HttpRequest<any> {
-    return request.clone({
-      setHeaders: {
-        Authorization: token
-      }
-    });
+    if (request.url.startsWith(this.authService.getApiUrl() + '/logins/refresh')) {
+      return request.clone({
+        setHeaders: {}
+      });
+    } else {
+      return request.clone({
+        setHeaders: {
+          Authorization: token
+        }
+      });
+    }
   }
 
   // tslint:disable-next-line:typedef
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+    if (this.authService.getJwtToken() === null) {
+      return;
+    }
     if (!this.isRefreshing) {
+      console.log('handle 401 not refreshing now');
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
@@ -49,6 +60,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }));
 
     } else {
+      console.log('handle 401 refreshing now');
       return this.refreshTokenSubject.pipe(
         filter(token => token != null),
         take(1),

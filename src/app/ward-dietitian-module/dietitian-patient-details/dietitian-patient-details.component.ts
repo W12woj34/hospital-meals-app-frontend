@@ -6,40 +6,19 @@ import {MatSort} from '@angular/material/sort';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
+import {PatientService} from '../../service/base/patient.service';
+import {DietService} from '../../service/base/diet.service';
+import {DietaryRestrictionService} from '../../service/base/dietary-restriction.service';
+import {RestrictionStatusService} from '../../service/base/restriction-status.service';
+import {PatientDietService} from '../../service/base/patient-diet.service';
+import {HttpParams} from '@angular/common/http';
+import {PatientData} from '../../dataBaseObjects/patient-data';
+import {Page} from '../../dataBaseObjects/page';
+import {PatientDiet} from '../../dataBaseObjects/patient-diet';
+import {DietaryRestriction} from '../../dataBaseObjects/dietary-restriction';
+import {Diet} from '../../dataBaseObjects/diet';
+import {RestrictionStatus} from '../../dataBaseObjects/restriction-status';
 
-const DIETA: string[] = [
-  'Indywidualna', 'Zwykła', 'Wysokobiałkowa', 'Węglowodanowa', 'Scisła', 'Bogato Resztkowa'
-];
-
-const RESTRYKCJA: string[] = [
-  'Aktualne', 'Nieaktualne'
-];
-
-export interface Diets {
-  diet: string;
-  dateFrom: string;
-  dateTo: string;
-
-}
-
-export interface Restrictions {
-  restriction: string;
-  status: string;
-
-}
-
-function createDiet(): Diets[] {
-  return [{
-    diet: 'Wysokobiałkowa',
-    dateFrom: '07.08.2020',
-    dateTo: ''
-  },
-    {
-      diet: 'Zwykła',
-      dateFrom: '01.08.2020',
-      dateTo: '07.08.2020'
-    }];
-}
 
 @Component({
   selector: 'app-dietitian-patient-details',
@@ -51,45 +30,76 @@ export class DietitianPatientDetailsComponent implements OnInit {
   dialogResult;
   currentDiet: FormGroup;
   additionalInfos: FormGroup;
-  patient = createNewUser();
-  displayedColumnsDiet: string[] = ['diet', 'dateFrom', 'dateTo'];
+  patient: PatientData;
+  displayedColumnsDiet: string[] = ['diet', 'startDate', 'endDate'];
   displayedColumnsRestriction: string[] = ['restriction', 'status'];
-  dataSourceDiet: MatTableDataSource<Diets>;
-  dataSourceRestrictions: MatTableDataSource<Restrictions>;
-  dietList = DIETA;
-  statusList = RESTRYKCJA;
-  diets = createDiet();
-  restrictions = [];
+  dataSourceDiet: MatTableDataSource<PatientDiet>;
+  dataSourceRestrictions: MatTableDataSource<DietaryRestriction>;
+  dietList: Page<Diet>;
+  statusList: Page<RestrictionStatus>;
+  diets: Page<PatientDiet>;
+  restrictions: Page<DietaryRestriction>;
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
 
 
   constructor(private fb: FormBuilder,
               public dialogRef: MatDialogRef<DietitianPatientDetailsComponent>,
-              public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.dataSourceDiet = new MatTableDataSource(this.diets);
-    this.dataSourceRestrictions = new MatTableDataSource(this.restrictions);
+              public dialog: MatDialog,
+              private patientService: PatientService,
+              private dietService: DietService,
+              private dietaryRestrictionService: DietaryRestrictionService,
+              private restrictionStatusService: RestrictionStatusService,
+              private patientDietService: PatientDietService,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   ngOnInit(): void {
+    const httpParams = new HttpParams().set('patientId', this.data.id);
+    this.patientService.getPatientData('data/' + this.data.id)
+      .subscribe(patient => {
+        this.patient = patient;
+        if (this.patient.diet === '') {
+          this.patient.diet = 'BRAK';
+        }
 
-    setTimeout(() => this.dataSourceDiet.paginator = this.paginator.toArray()[0]);
-    setTimeout(() => this.dataSourceDiet.sort = this.sort.toArray()[0]);
-    setTimeout(() => this.dataSourceRestrictions.paginator = this.paginator.toArray()[1]);
-    setTimeout(() => this.dataSourceRestrictions.sort = this.sort.toArray()[1]);
-    this.currentDiet = this.fb.group({
-      currentDiet: ['', Validators.required]
-    });
-    this.additionalInfos = this.fb.group({
-      additionalInfos: ['', Validators.required]
-    });
+        this.additionalInfos = this.fb.group({
+          additionalInfos: ['', Validators.required]
+        });
+        this.additionalInfos.get('additionalInfos').setValue(this.patient.additionalInfo);
 
-    const toSelect = this.diets[0].diet;
-    this.currentDiet.get('currentDiet').setValue(toSelect);
+      });
 
-    this.additionalInfos.get('additionalInfos').setValue(this.patient.additionalInfo);
+    this.dietaryRestrictionService.getPageSpec('', httpParams, 0, 20)
+      .subscribe(restrictions => {
+        this.restrictions = restrictions;
+        this.dataSourceRestrictions = new MatTableDataSource(this.restrictions.content.reverse());
+
+        this.restrictionStatusService.getPage()
+          .subscribe(statuses => {
+            this.statusList = statuses;
+            setTimeout(() => this.dataSourceRestrictions.paginator = this.paginator.toArray()[1]);
+            setTimeout(() => this.dataSourceRestrictions.sort = this.sort.toArray()[1]);
+          });
+
+      });
+
+    this.patientDietService.getPageSpec('', httpParams, 0, 20, ['startDate'])
+      .subscribe(diets => {
+        this.diets = diets;
+        this.dataSourceDiet = new MatTableDataSource(this.diets.content.reverse());
+
+        this.dietService.getPage()
+          .subscribe(diet => {
+            this.dietList = diet;
+            setTimeout(() => this.dataSourceDiet.paginator = this.paginator.toArray()[0]);
+            setTimeout(() => this.dataSourceDiet.sort = this.sort.toArray()[0]);
+          });
+
+      });
+
 
   }
 
@@ -106,7 +116,7 @@ export class DietitianPatientDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
       console.log(this.dialogResult);
-      if (this.dialogResult === false){
+      if (this.dialogResult === false) {
         return;
       }
       console.log('The dialog was closed');
@@ -119,45 +129,18 @@ export class DietitianPatientDetailsComponent implements OnInit {
 
   addRestriction(): void {
     console.log(this.restrictions);
-    this.restrictions = this.restrictions.concat([{
-      restriction: '0nowa restrykcja xddddddddddddddddddddddddddddddd',
-      status: this.statusList[0]
-    }]);
-    this.dataSourceRestrictions = new MatTableDataSource(this.restrictions);
+    // todo dodaj nową restrykcje
+    this.dataSourceRestrictions = new MatTableDataSource(this.restrictions.content);
     setTimeout(() => this.dataSourceRestrictions.paginator = this.paginator.toArray()[1]);
     setTimeout(() => this.dataSourceRestrictions.sort = this.sort.toArray()[1]);
   }
 
   changeStatus(row: any): void {
-    if (row.status === this.statusList[0]) {
-      row.status = this.statusList[1];
+    if (row.status.name === this.statusList.content[0].name) {
+      row.status = this.statusList.content[1];
     } else {
-      row.status = this.statusList[0];
+      row.status = this.statusList.content[0];
     }
 
   }
-}
-
-/** Builds and returns a new User. */
-function createNewUser(): PersonData {
-
-  return {
-    idPatient: '11',
-    pesel: '98100403971',
-    firstName: 'Wojciech',
-    lastName: 'Szewczuk',
-    ward: 'Onkologia',
-    birthDate: '04.10.1998',
-    additionalInfo: 'Odrzywki, tylko z kfd, tylko paskudne xddddddddddddddddddddddddddddd, bięso, mięso, mięso'
-  };
-}
-
-export interface PersonData {
-  idPatient: string;
-  pesel: string;
-  firstName: string;
-  lastName: string;
-  ward: string;
-  birthDate: string;
-  additionalInfo: string;
 }

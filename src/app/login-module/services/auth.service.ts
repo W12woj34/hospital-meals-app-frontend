@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {of, Observable} from 'rxjs';
-import {catchError, map, mapTo} from 'rxjs/operators';
+import {catchError, map, mapTo, tap} from 'rxjs/operators';
 import {Tokens} from '../models/tokens';
 import {Router} from '@angular/router';
 
@@ -45,13 +45,15 @@ export class AuthService {
   }
 
   refreshToken(): Observable<any> {
-    return this.http.post<any>(`${this.apiURL}/logins/refresh`, {
-      refreshToken: this.getRefreshToken()
-    }, {observe: 'response'})
+    console.log('Token refreshed');
+    return this.http.post<any>(`${this.apiURL}/logins/refresh?refreshToken=${this.getRefreshToken()}`,
+      {})
       .pipe(
-        map(response => {
-          this.storeJwtToken(response.headers.get('Authorization'));
-        })
+        tap((tokens: Tokens) => {
+        this.storeJwtToken(tokens.jwt);
+      })
+      //  ,
+       // catchError(this.handleRefreshError())
       );
   }
 
@@ -61,6 +63,10 @@ export class AuthService {
 
   getLoggedUser(): string {
     return this.loggedUser;
+  }
+
+  getApiUrl(): string {
+    return this.apiURL;
   }
 
   private doLoginUser(role: string, jwt: string, refreshToken: string): void {
@@ -89,5 +95,11 @@ export class AuthService {
   private removeTokens(): void {
     localStorage.removeItem(this.JWT_TOKEN);
     localStorage.removeItem(this.REFRESH_TOKEN);
+  }
+
+  private handleRefreshError(): null {
+    this.logout();
+    return null;
+
   }
 }

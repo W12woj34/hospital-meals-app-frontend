@@ -7,6 +7,9 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {MealService} from '../../service/base/meal.service';
+import {PatientMealOrder} from '../../dataBaseObjects/patient-meal-order';
+import {Page} from '../../dataBaseObjects/page';
 
 export interface Zamowienia {
   idPatient: number;
@@ -18,19 +21,6 @@ export interface Zamowienia {
   supper: boolean;
 }
 
-const ELEMENT_DATA: Zamowienia[] = [
-  {idPatient: 1, pesel: '98100403971', firstName: 'Hydrogen', lastName: 'Hydrogen', breakfast: false, lunch: false, supper: false},
-  {idPatient: 2, pesel: '98100403971', firstName: 'Hydrogen', lastName: 'Helium', breakfast: false, lunch: false, supper: false},
-  {idPatient: 3, pesel: '98100403971', firstName: 'Hydrogen', lastName: 'Lithium', breakfast: false, lunch: false, supper: false},
-  {idPatient: 4, pesel: '98100403971', firstName: 'Hydrogen', lastName: 'Beryllium', breakfast: false, lunch: true, supper: false},
-  {idPatient: 5, pesel: '98100403971', firstName: 'Hydrogen', lastName: 'Boron', breakfast: false, lunch: false, supper: false},
-  {idPatient: 6, pesel: '98100403971', firstName: 'Hydrogen', lastName: 'Carbon', breakfast: false, lunch: false, supper: false},
-  {idPatient: 7, pesel: '98100403971', firstName: 'Hydrogen', lastName: 'Nitrogen', breakfast: false, lunch: false, supper: false},
-  {idPatient: 8, pesel: '98100403971', firstName: 'Hydrogen', lastName: 'Oxygen', breakfast: false, lunch: false, supper: false},
-  {idPatient: 9, pesel: '98100403971', firstName: 'Hydrogen', lastName: 'Fluorine', breakfast: false, lunch: false, supper: false},
-  {idPatient: 10, pesel: '98100403971', firstName: 'Hydrogen', lastName: 'Neon', breakfast: false, lunch: false, supper: false},
-];
-
 @Component({
   selector: 'app-nurse-meals-orders',
   templateUrl: './nurse-meals-orders.component.html',
@@ -38,8 +28,9 @@ const ELEMENT_DATA: Zamowienia[] = [
 })
 export class NurseMealsOrdersComponent implements OnInit {
 
-  displayedColumns: string[] = ['idPatient', 'pesel', 'firstName', 'lastName', 'breakfast', 'lunch', 'supper'];
-  dataSource = new MatTableDataSource<Zamowienia>(ELEMENT_DATA);
+  patients: Page<PatientMealOrder>;
+  displayedColumns: string[] = ['pesel', 'firstName', 'lastName', 'birthDate', 'breakfast', 'lunch', 'supper'];
+  dataSource: MatTableDataSource<PatientMealOrder>;
   breakfast = new SelectionModel<Zamowienia>(true, []);
   lunch = new SelectionModel<Zamowienia>(true, []);
   supper = new SelectionModel<Zamowienia>(true, []);
@@ -50,12 +41,20 @@ export class NurseMealsOrdersComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               private router: Router,
-              private location: Location) {
+              private location: Location,
+              private mealService: MealService) {
   }
 
   ngOnInit(): void {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
-    setTimeout(() => this.dataSource.sort = this.sort);
+
+    this.mealService.getMealOrders()
+      .subscribe(patients => {
+        this.patients = patients;
+        this.dataSource = new MatTableDataSource(this.patients.content);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        setTimeout(() => this.dataSource.sort = this.sort);
+        });
+
   }
 
   goBack(): void {

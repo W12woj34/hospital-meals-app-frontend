@@ -7,14 +7,20 @@ import {BaseService} from './base.service';
 
 export abstract class BaseSpecificationService<T extends Resource<ID>, ID> extends BaseService<T, ID> {
 
-  getPageSpec(specificationParams: HttpParams,
+  getPageSpec(path: string,
+              specificationParams: HttpParams,
               page: number = 0,
               pageSize: number = 20,
-              path?: string,
               sortFields?: string[]
   ): Observable<Page<T>> {
 
-    const url = `${this.apiURL}/${this.endpoint}/${path}'/search'`;
+    let url = `${this.apiURL}/${this.endpoint}/${path}`;
+    if (path === '') {
+      url = url + 'search';
+    } else {
+      url = url + '/search';
+    }
+
 
     specificationParams = specificationParams
       .set('page', page.toString())

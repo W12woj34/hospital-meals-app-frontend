@@ -7,33 +7,14 @@ import {MatDialog} from '@angular/material/dialog';
 import {NursePatientDetailsComponent} from '../nurse-patient-details/nurse-patient-details.component';
 import {Router} from '@angular/router';
 import {NursePatientRegistrationComponent} from '../nurse-patient-registration/nurse-patient-registration.component';
-
-
-export interface UserData {
-  idPatient: string;
-  pesel: string;
-  firstName: string;
-  lastName: string;
-  dateFrom: string;
-  diet: string;
-}
+import {PatientService} from '../../service/base/patient.service';
+import {DietService} from '../../service/base/diet.service';
+import {PatientData} from '../../dataBaseObjects/patient-data';
+import {Page} from '../../dataBaseObjects/page';
 
 /** Constants used to fill up our data base. */
 
-const DATE_FROM: string[] = [
-  '04.10.1998', '11.12.1990', '12.12.2001', '05.13.1980'
-];
-const FIRST_NAMES: string[] = [
-  'Jan', 'Wojciech', 'Janusz', 'Piotr', 'Kamil', 'Władysław', 'Jeremi'
-];
 
-const LAST_NAMES: string[] = [
-  'Nowak', 'Kowalski', 'Tomkowski', 'Kaczyński', 'Ziobro'
-];
-
-const DIETA: string[] = [
-  'Indywidualna', 'Zwykła', 'Wysokobiałkowa', 'Węglowodanowa', 'Scisła', 'Bogato Resztkowa'
-];
 
 @Component({
   selector: 'app-nurse-main',
@@ -42,12 +23,12 @@ const DIETA: string[] = [
 })
 export class NurseMainComponent implements OnInit {
 
-  displayedColumns: string[] = ['idPatient', 'pesel', 'firstName', 'lastName', 'dateFrom', 'diet'];
+  displayedColumns: string[] = ['id', 'pesel', 'firstName', 'lastName', 'admissionDate', 'diet'];
   bufferDataSource;
-  dataSource: MatTableDataSource<UserData>;
-  users;
-  selectedDiets = DIETA;
-  dietList = DIETA;
+  dataSource: MatTableDataSource<PatientData>;
+  users: Page<PatientData>;
+  selectedDiets: string[];
+  dietList: string[];
   diets = new FormControl();
   filterValue = '';
   dialogResult;
@@ -55,31 +36,41 @@ export class NurseMainComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog, private router: Router) {
-    // Create 100 users
-    this.users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-    this.bindData();
-    // Assign the data to the data source for the table to render
-    this.bufferDataSource = this.users.map(x => Object.assign({}, x));
-    this.dataSource = new MatTableDataSource(this.bufferDataSource);
+  constructor(public dialog: MatDialog,
+              private router: Router,
+              private patientService: PatientService,
+              private dietService: DietService
+  ) {
   }
 
 
   ngOnInit(): void {
+    this.patientService.getPatientsData('data-ward')
+      .subscribe(patients => {
+        this.users = patients;
+        this.users.content.map(u => {
+          if (u.diet === '') {
+            u.diet = 'BRAK';
+          }
+        });
 
-    setTimeout(() => this.dataSource.paginator = this.paginator);
-    setTimeout(() => this.dataSource.sort = this.sort);
+        this.dietService.getPage()
+          .subscribe(diets => {
+            this.dietList = diets.content.map(d => d.name);
+            this.selectedDiets = this.dietList;
+            this.bindData();
+
+          });
+
+        this.bufferDataSource = this.users.content.map(x => Object.assign({}, x));
+        this.dataSource = new MatTableDataSource(this.bufferDataSource);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        setTimeout(() => this.dataSource.sort = this.sort);
+      });
   }
 
   bindData(): void {
-    const anotherListDiet: any[] = [
-      DIETA[0],
-      DIETA[1],
-      DIETA[2],
-      DIETA[3],
-      DIETA[4],
-      DIETA[5]
-    ];
+    const anotherListDiet: string[] = this.dietList;
 
     this.diets.setValue(anotherListDiet);
   }
@@ -119,7 +110,7 @@ export class NurseMainComponent implements OnInit {
   }
 
   private predicateData(): void {
-    this.bufferDataSource = this.users.map(x => Object.assign({}, x))
+    this.bufferDataSource = this.users.content.map(x => Object.assign({}, x))
       .filter(x => this.selectedDiets.includes(x.diet));
     this.dataSource = new MatTableDataSource(this.bufferDataSource);
     setTimeout(() => this.dataSource.paginator = this.paginator);
@@ -150,15 +141,3 @@ export class NurseMainComponent implements OnInit {
   }
 }
 
-/** Builds and returns a new User. */
-function createNewUser(pesel: number): UserData {
-
-  return {
-    idPatient: pesel.toString(),
-    pesel: pesel.toString(),
-    firstName: FIRST_NAMES[Math.round(Math.random() * (FIRST_NAMES.length - 1))],
-    lastName: LAST_NAMES[Math.round(Math.random() * (LAST_NAMES.length - 1))],
-    dateFrom: DATE_FROM[Math.round(Math.random() * (DATE_FROM.length - 1))],
-    diet: DIETA[Math.round(Math.random() * (DIETA.length - 1))]
-  };
-}

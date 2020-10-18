@@ -4,50 +4,15 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
+import {PatientService} from '../../service/base/patient.service';
+import {PatientData} from '../../dataBaseObjects/patient-data';
+import {StayService} from '../../service/base/stay.service';
+import {Stay} from '../../dataBaseObjects/stay';
+import {Page} from '../../dataBaseObjects/page';
+import {PatientDietService} from '../../service/base/patient-diet.service';
+import {PatientDiet} from '../../dataBaseObjects/patient-diet';
+import {HttpParams} from '@angular/common/http';
 
-export interface Diets {
-  diet: string;
-  dateFrom: string;
-  dateTo: string;
-
-}
-
-export interface Stays {
-  ward: string;
-  dateFrom: string;
-  dateTo: string;
-}
-
-function createDiet(): Diets[] {
-  return [{
-    diet: 'Wysokobiałkowa',
-    dateFrom: '07.08.2020',
-    dateTo: ''
-  },
-    {
-      diet: 'Zwykła',
-      dateFrom: '01.08.2020',
-      dateTo: '07.08.2020'
-    }];
-}
-
-function createStays(): Stays[] {
-  return [{
-    ward: 'Onkologia',
-    dateFrom: '07.10.2020',
-    dateTo: ''
-  },
-    {
-    ward: 'Kardiologia',
-    dateFrom: '01.08.2020',
-    dateTo: '07.08.2020'
-  },
-    {
-      ward: 'Okulistyka',
-      dateFrom: '07.02.2019',
-      dateTo: '16.02.2019'
-    }];
-}
 
 @Component({
   selector: 'app-nurse-patient-details',
@@ -57,30 +22,53 @@ function createStays(): Stays[] {
 export class NursePatientDetailsComponent implements OnInit {
 
   dialogResult;
-  patient = createNewUser();
-  displayedColumnsDiet: string[] = ['diet', 'dateFrom', 'dateTo'];
-  displayedColumnsStay: string[] = ['ward', 'dateFrom', 'dateTo'];
-  dataSourceDiet: MatTableDataSource<Diets>;
-  dataSourceStay: MatTableDataSource<Stays>;
-  diets = createDiet();
-  stays = createStays();
+  patient: PatientData;
+  displayedColumnsDiet: string[] = ['diet', 'startDate', 'endDate'];
+  displayedColumnsStay: string[] = ['ward', 'admissionDate', 'releaseDate'];
+  dataSourceDiet: MatTableDataSource<PatientDiet>;
+  dataSourceStay: MatTableDataSource<Stay>;
+  diets: Page<PatientDiet>;
+  stays: Page<Stay>;
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
 
 
   constructor(public dialogRef: MatDialogRef<NursePatientDetailsComponent>,
               public dialog: MatDialog,
+              private patientService: PatientService,
+              private patientDietService: PatientDietService,
+              private stayService: StayService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.dataSourceDiet = new MatTableDataSource(this.diets);
-    this.dataSourceStay = new MatTableDataSource(this.stays);
+
   }
 
   ngOnInit(): void {
+    console.log(this.data);
+    const httpParams = new HttpParams().set('patientId', this.data.id);
+    this.patientService.getPatientData('data/' + this.data.id)
+      .subscribe(patient => {
+        this.patient = patient;
+        if (this.patient.diet === '') {
+          this.patient.diet = 'BRAK';
+        }
+      });
 
-    setTimeout(() => this.dataSourceDiet.paginator = this.paginator.toArray()[0]);
-    setTimeout(() => this.dataSourceDiet.sort = this.sort.toArray()[0]);
-    setTimeout(() => this.dataSourceStay.paginator = this.paginator.toArray()[1]);
-    setTimeout(() => this.dataSourceStay.sort = this.sort.toArray()[1]);
+    this.stayService.getPageSpec('', httpParams, 0, 20, ['admissionDate'])
+      .subscribe(stays => {
+        this.stays = stays;
+        this.dataSourceStay = new MatTableDataSource(this.stays.content.reverse());
+        setTimeout(() => this.dataSourceStay.paginator = this.paginator.toArray()[1]);
+        setTimeout(() => this.dataSourceStay.sort = this.sort.toArray()[1]);
+      });
+
+    this.patientDietService.getPageSpec('', httpParams, 0, 20, ['startDate'])
+      .subscribe(diets => {
+        this.diets = diets;
+        this.dataSourceDiet = new MatTableDataSource(this.diets.content.reverse());
+        setTimeout(() => this.dataSourceDiet.paginator = this.paginator.toArray()[0]);
+        setTimeout(() => this.dataSourceDiet.sort = this.sort.toArray()[0]);
+      });
+
 
   }
 
@@ -97,7 +85,7 @@ export class NursePatientDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
       console.log(this.dialogResult);
-      if (this.dialogResult === false){
+      if (this.dialogResult === false) {
         return;
       }
       console.log('The dialog was closed');
@@ -108,28 +96,4 @@ export class NursePatientDetailsComponent implements OnInit {
 
   }
 
-}
-
-/** Builds and returns a new User. */
-function createNewUser(): PersonData {
-
-  return {
-    idPatient: '11',
-    pesel: '98100403971',
-    firstName: 'Wojciech',
-    lastName: 'Szewczuk',
-    ward: 'Onkologia',
-    birthDate: '04.10.1998',
-    additionalInfo: 'Odrzywki, tylko z kfd, tylko paskudne xddddddddddddddddddddddddddddd, bięso, mięso, mięso'
-  };
-}
-
-export interface PersonData {
-  idPatient: string;
-  pesel: string;
-  firstName: string;
-  lastName: string;
-  ward: string;
-  birthDate: string;
-  additionalInfo: string;
 }

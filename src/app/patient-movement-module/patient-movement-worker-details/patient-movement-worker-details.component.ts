@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
-import {PasswordChangeComponent} from '../../tools-module/password-change/password-change.component';
-import {Ward} from '../../dataBaseObjects/ward';
 import {PatientMovementWorkerPasswordChangeComponent} from '../patient-movement-worker-password-change/patient-movement-worker-password-change.component';
+import {EmployeeService} from '../../service/base/employee.service';
+import {EmployeeData} from '../../dataBaseObjects/employee-data';
 
 export interface WorkerData {
   idWorker: number;
@@ -15,9 +15,6 @@ export interface WorkerData {
   ward: string;
 }
 
-const WARDS: Ward[] = [
-  {id: 1, name: 'Onkologia'}, {id: 2, name: 'Chirurgia'}, {id: 3, name: 'Kardiologia'}, {id: 4, name: 'Okulistyka'}
-];
 
 @Component({
   selector: 'app-patient-movement-worker-details',
@@ -27,16 +24,22 @@ const WARDS: Ward[] = [
 
 export class PatientMovementWorkerDetailsComponent implements OnInit {
 
-  wards = WARDS;
   dialogResult;
-  worker = createNewUser();
+  worker: EmployeeData;
 
   constructor(public dialogRef: MatDialogRef<PatientMovementWorkerDetailsComponent>,
               public dialog: MatDialog,
+              private employeeService: EmployeeService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit(): void {
+
+    this.employeeService.getEmployeeData('data/' + this.data.id)
+      .subscribe(employee => {
+        this.worker = employee;
+
+      });
   }
 
   isWardNurse(): boolean {
@@ -85,8 +88,8 @@ export class PatientMovementWorkerDetailsComponent implements OnInit {
   }
 
   onConfirm(): void {
-      console.log('The dialog was closed');
-      this.dialogRef.close(true);
+    console.log('The dialog was closed');
+    this.dialogRef.close(true);
 
     // tu trzeba będzie zapisać wszystko
 

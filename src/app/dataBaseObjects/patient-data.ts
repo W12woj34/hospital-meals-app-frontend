@@ -7,4 +7,5 @@ export interface PatientData extends Resource<number> {
   pesel: number;
   ward: string;
   diet: string;
+  additionalInfo: string;
 }

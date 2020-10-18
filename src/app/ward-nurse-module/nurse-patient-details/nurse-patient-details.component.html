@@ -32,17 +32,17 @@
 
         <ng-container matColumnDef="diet">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Dieta</th>
-          <td mat-cell *matCellDef="let row"> {{row.diet}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.diet.name}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="dateFrom">
+        <ng-container matColumnDef="startDate">
           <th mat-header-cell *matHeaderCellDef> Od</th>
-          <td mat-cell *matCellDef="let row"> {{row.dateFrom}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.startDate}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="dateTo">
+        <ng-container matColumnDef="endDate">
           <th mat-header-cell *matHeaderCellDef> Do</th>
-          <td mat-cell *matCellDef="let row"> {{row.dateTo}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.endDate}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumnsDiet"></tr>
@@ -65,17 +65,17 @@
 
         <ng-container matColumnDef="ward">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Oddział</th>
-          <td mat-cell *matCellDef="let row"> {{row.ward}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.ward.name}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="dateFrom">
+        <ng-container matColumnDef="admissionDate">
           <th mat-header-cell *matHeaderCellDef> Pobyt od</th>
-          <td mat-cell *matCellDef="let row"> {{row.dateFrom}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.admissionDate}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="dateTo">
+        <ng-container matColumnDef="releaseDate">
           <th mat-header-cell *matHeaderCellDef> Pobyt do</th>
-          <td mat-cell *matCellDef="let row"> {{row.dateTo}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.releaseDate}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumnsStay"></tr>

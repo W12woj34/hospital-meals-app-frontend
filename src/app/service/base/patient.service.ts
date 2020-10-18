@@ -16,9 +16,9 @@ export class PatientService extends BaseSpecificationService<Patient, number> {
     super(httpClient, 'patients');
   }
 
-  getPatientsData(page: number = BaseService.DEFAULT_PAGE,
+  getPatientsData(path: string,
+                  page: number = BaseService.DEFAULT_PAGE,
                   pageSize: number = BaseService.DEFAULT_PAGE_SIZE,
-                  path: string,
                   sortFields?: string[]
   ): Observable<Page<PatientData>> {
 

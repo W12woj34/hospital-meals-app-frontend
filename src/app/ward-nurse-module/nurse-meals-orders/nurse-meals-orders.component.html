@@ -24,11 +24,6 @@
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
-        <ng-container matColumnDef="idPatient">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-          <td mat-cell *matCellDef="let element"> {{element.idPatient}} </td>
-        </ng-container>
-
         <ng-container matColumnDef="pesel">
           <th mat-header-cell *matHeaderCellDef> Pesel </th>
           <td mat-cell *matCellDef="let element"> {{element.pesel}} </td>
@@ -42,6 +37,11 @@
         <ng-container matColumnDef="lastName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Nazwisko </th>
           <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="birthDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Data urodzenia </th>
+          <td mat-cell *matCellDef="let element"> {{element.birthDate}} </td>
         </ng-container>
 
         <ng-container matColumnDef="breakfast">

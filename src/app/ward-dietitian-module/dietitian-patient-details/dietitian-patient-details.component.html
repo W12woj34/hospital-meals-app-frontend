@@ -23,6 +23,7 @@
   <mat-label>Informacje dodatkowe</mat-label>
   <textarea matInput
             cdkTextareaAutosize
+            autocomplete="off"
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="5"
@@ -38,9 +39,9 @@
     <h2>Diety</h2>
     <form [formGroup]="currentDiet">
       <mat-form-field appearance="fill" class="choose">
-        <mat-label>Diety</mat-label>
+        <mat-label>Nowa dieta</mat-label>
         <mat-select formControlName="currentDiet">
-          <mat-option *ngFor="let diet of dietList" [value]="diet">{{diet}}</mat-option>
+          <mat-option *ngFor="let diet of dietList.content" [value]="diet">{{diet.name}}</mat-option>
         </mat-select>
       </mat-form-field>
     </form>
@@ -50,17 +51,17 @@
 
         <ng-container matColumnDef="diet">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Dieta</th>
-          <td mat-cell *matCellDef="let row"> {{row.diet}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.diet.name}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="dateFrom">
+        <ng-container matColumnDef="startDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Od</th>
-          <td mat-cell *matCellDef="let row"> {{row.dateFrom}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.startDate}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="dateTo">
+        <ng-container matColumnDef="endDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Do</th>
-          <td mat-cell *matCellDef="let row"> {{row.dateTo}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.endDate}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumnsDiet"></tr>
@@ -90,7 +91,7 @@
 
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
-          <td mat-cell *matCellDef="let row"> {{row.status}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.status.name}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumnsRestriction"></tr>

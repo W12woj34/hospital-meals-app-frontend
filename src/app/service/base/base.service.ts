@@ -8,7 +8,7 @@ import {Page} from '../../dataBaseObjects/page';
 export abstract class BaseService<T extends Resource<ID>, ID> {
 
   protected static readonly DEFAULT_PAGE = 0;
-  protected static readonly DEFAULT_PAGE_SIZE = 20;
+  protected static readonly DEFAULT_PAGE_SIZE = 100;
   protected apiURL = 'http://localhost:8080';
 
   httpOptions = {
@@ -19,11 +19,11 @@ export abstract class BaseService<T extends Resource<ID>, ID> {
   }
 
 
-  getPage(page: number = BaseService.DEFAULT_PAGE,
+  getPage(path: string = '',
+          page: number = BaseService.DEFAULT_PAGE,
           pageSize: number = BaseService.DEFAULT_PAGE_SIZE,
-          path?: string,
           sortFields?: string[]
-): Observable<Page<T>> {
+  ): Observable<Page<T>> {
 
     let httpParams = new HttpParams()
       .set('page', page.toString())

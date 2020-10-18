@@ -8,31 +8,14 @@ import {Router} from '@angular/router';
 import {PatientMovementWorkerDetailsComponent} from '../patient-movement-worker-details/patient-movement-worker-details.component';
 import {Location} from '@angular/common';
 import {PatientMovementAddWorkerComponent} from '../patient-movement-add-worker/patient-movement-add-worker.component';
+import {EmployeeData} from '../../dataBaseObjects/employee-data';
+import {EmployeeService} from '../../service/base/employee.service';
+import {Page} from '../../dataBaseObjects/page';
 
 /** Constants used to fill up our data base. */
 
-export interface WorkerData {
-  idWorker: number;
-  pesel: string;
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  role: string;
-}
-
-const BIRTH_DATE: string[] = [
-  '04.10.1998', '11.12.1990', '12.12.2001', '05.13.1980'
-];
-const FIRST_NAMES: string[] = [
-  'Jan', 'Wojciech', 'Janusz', 'Piotr', 'Kamil', 'Władysław', 'Jeremi'
-];
-
-const LAST_NAMES: string[] = [
-  'Nowak', 'Kowalski', 'Tomkowski', 'Kaczyński', 'Ziobro'
-];
-
 const ROLE: string[] = [
-  'Pielęgniarka Oddziałowa', 'Dietetyczka Oddziałowa', 'Dietetyczka Kuchni', 'Ruch Chorych'
+  'Pielęgniarka Oddziałowa', 'Dietetyk Oddziałowy', 'Dietetyk Kuchni', 'Ruch Chorych'
 ];
 
 @Component({
@@ -43,10 +26,10 @@ const ROLE: string[] = [
 export class PatientMovementWorkersComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['idWorker', 'pesel', 'firstName', 'lastName', 'birthDate', 'role'];
+  displayedColumns: string[] = ['id', 'pesel', 'firstName', 'lastName', 'birthDate', 'role'];
   bufferDataSource;
-  dataSource: MatTableDataSource<WorkerData>;
-  users;
+  dataSource: MatTableDataSource<EmployeeData>;
+  users: Page<EmployeeData>;
   selectedRoles = ROLE;
   roleList = ROLE;
   roles = new FormControl();
@@ -56,31 +39,32 @@ export class PatientMovementWorkersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog, private router: Router, private location: Location) {
-    // Create 100 users
-    this.users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-    this.bindData();
-    // Assign the data to the data source for the table to render
-    this.bufferDataSource = this.users.map(x => Object.assign({}, x));
-    this.dataSource = new MatTableDataSource(this.bufferDataSource);
+  constructor(public dialog: MatDialog,
+              private router: Router,
+              private location: Location,
+              private employeeService: EmployeeService) {
   }
 
 
   ngOnInit(): void {
 
-    setTimeout(() => this.dataSource.paginator = this.paginator);
-    setTimeout(() => this.dataSource.sort = this.sort);
+    this.employeeService.getEmployeesData('data')
+      .subscribe(employees => {
+        this.users = employees;
+        this.bindData();
+        this.bufferDataSource = this.users.content.map(x => Object.assign({}, x));
+        this.dataSource = new MatTableDataSource(this.bufferDataSource);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        setTimeout(() => this.dataSource.sort = this.sort);
+      });
+
+
   }
 
   bindData(): void {
-    const anotherListDiet: any[] = [
-      ROLE[0],
-      ROLE[1],
-      ROLE[2],
-      ROLE[3],
-    ];
+    const anotherListRoles: string[] = this.roleList;
 
-    this.roles.setValue(anotherListDiet);
+    this.roles.setValue(anotherListRoles);
   }
 
   goBack(): void {
@@ -135,7 +119,7 @@ export class PatientMovementWorkersComponent implements OnInit {
   }
 
   private predicateData(): void {
-    this.bufferDataSource = this.users.map(x => Object.assign({}, x))
+    this.bufferDataSource = this.users.content.map(x => Object.assign({}, x))
       .filter(x => this.selectedRoles.includes(x.role));
     this.dataSource = new MatTableDataSource(this.bufferDataSource);
     setTimeout(() => this.dataSource.paginator = this.paginator);
@@ -148,15 +132,3 @@ export class PatientMovementWorkersComponent implements OnInit {
   }
 }
 
-/** Builds and returns a new User. */
-function createNewUser(pesel: number): WorkerData {
-
-  return {
-    idWorker: pesel,
-    pesel: pesel.toString(),
-    firstName: FIRST_NAMES[Math.round(Math.random() * (FIRST_NAMES.length - 1))],
-    lastName: LAST_NAMES[Math.round(Math.random() * (LAST_NAMES.length - 1))],
-    birthDate: BIRTH_DATE[Math.round(Math.random() * (BIRTH_DATE.length - 1))],
-    role: ROLE[Math.round(Math.random() * (ROLE.length - 1))]
-  };
-}

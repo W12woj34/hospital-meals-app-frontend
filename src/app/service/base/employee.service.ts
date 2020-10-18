@@ -15,9 +15,9 @@ export class EmployeeService extends BaseService<Employee, number> {
     super(httpClient, 'employees');
   }
 
-  getEmployeesData(page: number = BaseService.DEFAULT_PAGE,
+  getEmployeesData(path: string = 'data',
+                   page: number = BaseService.DEFAULT_PAGE,
                    pageSize: number = BaseService.DEFAULT_PAGE_SIZE,
-                   path: string = 'data',
                    sortFields?: string[]
   ): Observable<Page<EmployeeData>> {
 

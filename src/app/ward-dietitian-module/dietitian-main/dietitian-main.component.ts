@@ -5,32 +5,11 @@ import {MatPaginator} from '@angular/material/paginator';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {DietitianPatientDetailsComponent} from '../dietitian-patient-details/dietitian-patient-details.component';
-
-export interface UserData {
-  idPatient: string;
-  pesel: string;
-  firstName: string;
-  lastName: string;
-  ward: string;
-  diet: string;
-}
-
-/** Constants used to fill up our data base. */
-
-const WARDS: string[] = [
-  'Ortopedia', 'Laryngologia', 'Chirurgia', 'Chirurgia Naczyniowa', 'Okulistyka', 'Kardiologia'
-];
-const FIRST_NAMES: string[] = [
-  'Jan', 'Wojciech', 'Janusz', 'Piotr', 'Kamil', 'Władysław', 'Jeremi'
-];
-
-const LAST_NAMES: string[] = [
-  'Nowak', 'Kowalski', 'Tomkowski', 'Kaczyński', 'Ziobro'
-];
-
-const DIETA: string[] = [
-  'Indywidualna', 'Zwykła', 'Wysokobiałkowa', 'Węglowodanowa', 'Scisła', 'Bogato Resztkowa'
-];
+import {PatientService} from '../../service/base/patient.service';
+import {PatientData} from '../../dataBaseObjects/patient-data';
+import {Page} from '../../dataBaseObjects/page';
+import {WardService} from '../../service/base/ward.service';
+import {DietService} from '../../service/base/diet.service';
 
 @Component({
   selector: 'app-dietitian-main',
@@ -41,12 +20,12 @@ export class DietitianMainComponent implements OnInit {
 
   displayedColumns: string[] = ['pesel', 'firstName', 'lastName', 'ward', 'diet'];
   bufferDataSource;
-  dataSource: MatTableDataSource<UserData>;
-  users;
-  selectedWards = WARDS;
-  selectedDiets = DIETA;
-  dietList = DIETA;
-  wardList = WARDS;
+  dataSource: MatTableDataSource<PatientData>;
+  users: Page<PatientData>;
+  selectedWards: string[];
+  selectedDiets: string[];
+  dietList: string[];
+  wardList: string[];
   diets = new FormControl();
   wards = new FormControl();
   filterValue = '';
@@ -55,40 +34,49 @@ export class DietitianMainComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog) {
-    // Create 100 users
-    this.users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-    this.bindData();
-    // Assign the data to the data source for the table to render
-    this.bufferDataSource = this.users.map(x => Object.assign({}, x));
-    this.dataSource = new MatTableDataSource(this.bufferDataSource);
+  constructor(public dialog: MatDialog,
+              private patientService: PatientService,
+              private wardService: WardService,
+              private dietService: DietService) {
+
   }
 
 
   ngOnInit(): void {
+    this.patientService.getPatientsData('data')
+      .subscribe(patients => {
+        this.users = patients;
+        this.users.content.map(u => {
+          if (u.diet === '') {
+            u.diet = 'BRAK';
+          }
+        });
 
-    setTimeout(() => this.dataSource.paginator = this.paginator);
-    setTimeout(() => this.dataSource.sort = this.sort);
+        this.wardService.getPage()
+          .subscribe(wards => {
+            this.wardList = wards.content.map(w => w.name);
+            this.selectedWards = this.wardList;
+
+            this.dietService.getPage()
+              .subscribe(diets => {
+                this.dietList = diets.content.map(d => d.name).concat(['BRAK']);
+                this.selectedDiets = this.dietList;
+                this.bindData();
+              });
+          });
+
+        this.bufferDataSource = this.users.content.map(x => Object.assign({}, x));
+        this.dataSource = new MatTableDataSource(this.bufferDataSource);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        setTimeout(() => this.dataSource.sort = this.sort);
+      });
+
   }
 
   bindData(): void {
-    const anotherListDiet: any[] = [
-      DIETA[0],
-      DIETA[1],
-      DIETA[2],
-      DIETA[3],
-      DIETA[4],
-      DIETA[5]
-    ];
+    const anotherListDiet: string[] = this.dietList;
 
-    const anotherListWard: any[] = [
-      WARDS[0],
-      WARDS[1],
-      WARDS[2],
-      WARDS[3],
-      WARDS[4],
-      WARDS[5]
-    ];
+    const anotherListWard: string[] = this.wardList;
 
     this.wards.setValue(anotherListWard);
     this.diets.setValue(anotherListDiet);
@@ -136,7 +124,7 @@ export class DietitianMainComponent implements OnInit {
   }
 
   private predicateData(): void {
-    this.bufferDataSource = this.users.map(x => Object.assign({}, x))
+    this.bufferDataSource = this.users.content.map(x => Object.assign({}, x))
       .filter(x => this.selectedDiets.includes(x.diet))
       .filter(x => this.selectedWards.includes(x.ward));
     this.dataSource = new MatTableDataSource(this.bufferDataSource);
@@ -152,15 +140,3 @@ export class DietitianMainComponent implements OnInit {
 
 }
 
-/** Builds and returns a new User. */
-function createNewUser(pesel: number): UserData {
-
-  return {
-    idPatient: pesel.toString(),
-    pesel: pesel.toString(),
-    firstName: FIRST_NAMES[Math.round(Math.random() * (FIRST_NAMES.length - 1))],
-    lastName: LAST_NAMES[Math.round(Math.random() * (LAST_NAMES.length - 1))],
-    ward: WARDS[Math.round(Math.random() * (WARDS.length - 1))],
-    diet: DIETA[Math.round(Math.random() * (DIETA.length - 1))]
-  };
-}
