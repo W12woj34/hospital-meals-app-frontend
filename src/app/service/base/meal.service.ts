@@ -36,8 +36,11 @@ export class MealService extends BaseSpecificationService<Meal, number> {
       );
   }
 
-  setPatientMeals(dto: PatientMealOrder, path?: string): Observable<void> {
+  setPatientMeals(dto: PatientMealOrder[], path?: string): Observable<void> {
+
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
+    console.log(url);
+    console.log(dto);
     return this.http.post<void>(url, dto, this.httpOptions).pipe(
       tap(_ => console.log(`post Dtos to ${url}`)),
       catchError(this.handleError<void>('addDto'))

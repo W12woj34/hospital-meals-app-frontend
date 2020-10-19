@@ -30,7 +30,7 @@ export class PatientMovementLogsComponent implements OnInit {
   bufferDataSource;
   dataSource: MatTableDataSource<UserData>;
   logsPage: Page<Log>;
-  users;
+  users: UserData[] = [];
   selectedLogs: string[];
   logList: string[];
   logs = new FormControl();
@@ -53,10 +53,11 @@ export class PatientMovementLogsComponent implements OnInit {
     this.logService.getPage()
       .subscribe(logs => {
         this.logsPage = logs;
-        this.users = this.logsPage.content.map(u => {
+        this.logsPage.content.map(u => {
             this.personService.get(u.userId.toString())
               .subscribe(p => {
-                createNewUser(u.id, u.timestamp, p.firstName + ' ' + p.lastName + ' ' + p.pesel, u.event.eventName);
+                this.users.push(
+                  createNewUser(u.id, u.timestamp, p.firstName + ' ' + p.lastName + ' - ' + p.pesel, u.event.eventName));
               });
           }
         );
@@ -66,13 +67,15 @@ export class PatientMovementLogsComponent implements OnInit {
             this.logList = events.content.map(e => e.eventName);
             this.selectedLogs = this.logList;
             this.bindData();
-
+            this.users.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+            this.bufferDataSource = this.users.map(x => Object.assign({}, x));
+            this.dataSource = new MatTableDataSource(this.bufferDataSource);
+            setTimeout(() => this.dataSource.paginator = this.paginator);
+            setTimeout(() => this.dataSource.sort = this.sort);
+            console.log(this.users);
           });
 
-        this.bufferDataSource = this.users.content.map(x => Object.assign({}, x));
-        this.dataSource = new MatTableDataSource(this.bufferDataSource);
-        setTimeout(() => this.dataSource.paginator = this.paginator);
-        setTimeout(() => this.dataSource.sort = this.sort);
+
       });
 
   }

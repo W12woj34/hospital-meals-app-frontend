@@ -35,7 +35,7 @@ export class NurseMealsOrdersComponent implements OnInit {
   lunch = new SelectionModel<Zamowienia>(true, []);
   supper = new SelectionModel<Zamowienia>(true, []);
   filterValue = '';
-  dialogResult;
+  dialogResult: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -114,7 +114,7 @@ export class NurseMealsOrdersComponent implements OnInit {
     } else if (value === 'lunch') {
       row.lunch = !row.lunch;
     } else if (value === 'supper') {
-      row.koalcja = !row.koalcja;
+      row.supper = !row.supper;
     }
   }
 
@@ -138,6 +138,10 @@ export class NurseMealsOrdersComponent implements OnInit {
       this.dialogResult = result;
       console.log('The dialog was closed');
       console.log(this.dialogResult);
+      if (this.dialogResult){
+        console.log(this.dialogResult);
+        this.mealService.setPatientMeals(this.patients.content, 'meal-order').subscribe();
+      }
     });
   }
 }

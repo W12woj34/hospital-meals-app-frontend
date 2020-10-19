@@ -5,7 +5,7 @@ import {MaterialModule} from '../material/material.module';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +13,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     imports: [
         CommonModule,
         MaterialModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule
     ],
   exports: [TopBarComponent, ConfirmDialogComponent, SpinnerComponent]
 })

@@ -18,7 +18,7 @@ export class LoginSiteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(form): void {
+  onSubmit(): void {
 
     this.authService.login(this.user).subscribe(
       (_ => {
