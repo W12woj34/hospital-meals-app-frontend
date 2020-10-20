@@ -9,8 +9,8 @@ export abstract class BaseSpecificationService<T extends Resource<ID>, ID> exten
 
   getPageSpec(path: string,
               specificationParams: HttpParams,
-              page: number = 0,
-              pageSize: number = 20,
+              page: number = BaseService.DEFAULT_PAGE,
+              pageSize: number = BaseService.DEFAULT_PAGE_SIZE,
               sortFields?: string[]
   ): Observable<Page<T>> {
 

@@ -10,6 +10,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MealService} from '../../service/base/meal.service';
 import {PatientMealOrder} from '../../dataBaseObjects/patient-meal-order';
 import {Page} from '../../dataBaseObjects/page';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface Zamowienia {
   idPatient: number;
@@ -42,7 +43,8 @@ export class NurseMealsOrdersComponent implements OnInit {
   constructor(public dialog: MatDialog,
               private router: Router,
               private location: Location,
-              private mealService: MealService) {
+              private mealService: MealService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -53,7 +55,7 @@ export class NurseMealsOrdersComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.patients.content);
         setTimeout(() => this.dataSource.paginator = this.paginator);
         setTimeout(() => this.dataSource.sort = this.sort);
-        });
+      });
 
   }
 
@@ -62,24 +64,28 @@ export class NurseMealsOrdersComponent implements OnInit {
   }
 
   isAllSelected(which): boolean {
-    if (which === 'breakfast') {
-      return this.dataSource.data.filter(row => row.breakfast === true).length === this.dataSource.data.length;
-    } else if (which === 'lunch') {
-      return this.dataSource.data.filter(row => row.lunch === true).length === this.dataSource.data.length;
-    } else if (which === 'supper') {
-      return this.dataSource.data.filter(row => row.supper === true).length === this.dataSource.data.length;
+    if (this.dataSource) {
+      if (which === 'breakfast') {
+        return this.dataSource.data.filter(row => row.breakfast === true).length === this.dataSource.data.length;
+      } else if (which === 'lunch') {
+        return this.dataSource.data.filter(row => row.lunch === true).length === this.dataSource.data.length;
+      } else if (which === 'supper') {
+        return this.dataSource.data.filter(row => row.supper === true).length === this.dataSource.data.length;
+      }
     }
+
   }
 
   isAllEmpty(which): boolean {
-    if (which === 'breakfast') {
-      return this.dataSource.data.filter(row => row.breakfast === false).length === this.dataSource.data.length;
-    } else if (which === 'lunch') {
-      return this.dataSource.data.filter(row => row.lunch === false).length === this.dataSource.data.length;
-    } else if (which === 'supper') {
-      return this.dataSource.data.filter(row => row.supper === false).length === this.dataSource.data.length;
+    if (this.dataSource) {
+      if (which === 'breakfast') {
+        return this.dataSource.data.filter(row => row.breakfast === false).length === this.dataSource.data.length;
+      } else if (which === 'lunch') {
+        return this.dataSource.data.filter(row => row.lunch === false).length === this.dataSource.data.length;
+      } else if (which === 'supper') {
+        return this.dataSource.data.filter(row => row.supper === false).length === this.dataSource.data.length;
+      }
     }
-
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -138,9 +144,13 @@ export class NurseMealsOrdersComponent implements OnInit {
       this.dialogResult = result;
       console.log('The dialog was closed');
       console.log(this.dialogResult);
-      if (this.dialogResult){
+      if (this.dialogResult) {
         console.log(this.dialogResult);
-        this.mealService.setPatientMeals(this.patients.content, 'meal-order').subscribe();
+        this.mealService.setPatientMeals(this.patients.content, 'meal-order').subscribe(() => {
+          this.snackBar.open('Wypisano pacjenta!', 'OK', {
+            duration: 4000,
+          });
+        });
       }
     });
   }

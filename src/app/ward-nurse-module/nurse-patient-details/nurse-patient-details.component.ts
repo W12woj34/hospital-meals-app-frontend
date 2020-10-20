@@ -12,6 +12,8 @@ import {Page} from '../../dataBaseObjects/page';
 import {PatientDietService} from '../../service/base/patient-diet.service';
 import {PatientDiet} from '../../dataBaseObjects/patient-diet';
 import {HttpParams} from '@angular/common/http';
+import {MealService} from '../../service/base/meal.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -38,6 +40,8 @@ export class NursePatientDetailsComponent implements OnInit {
               private patientService: PatientService,
               private patientDietService: PatientDietService,
               private stayService: StayService,
+              private mealService: MealService,
+              private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
@@ -88,11 +92,34 @@ export class NursePatientDetailsComponent implements OnInit {
       if (this.dialogResult === false) {
         return;
       }
-      console.log('The dialog was closed');
-      this.dialogRef.close(true);
-    });
+      this.mealService.getPatientMealOrders(this.data.id).subscribe(orders => {
 
-    // tu trzeba będzie zapisać wszystko
+        orders.content.forEach(o => {
+          o.breakfast = false;
+          o.lunch = false;
+          o.supper = false;
+        });
+
+        this.mealService.setPatientMeals(orders.content, 'meal-order').subscribe(() => {
+
+          const httpParams = new HttpParams().set('patientId', String(this.patient.id)).set('archived', 'false');
+
+          this.stayService.getPageSpec('', httpParams).subscribe(stay => {
+
+            const dto = stay.content[0];
+            dto.archived = true;
+
+            this.stayService.put(dto, String(dto.id)).subscribe(() => {
+
+              this.snackBar.open('Wypisano pacjenta!', 'OK', {
+                duration: 4000,
+              });
+              this.dialogRef.close(true);
+            });
+          });
+        });
+      });
+    });
 
   }
 

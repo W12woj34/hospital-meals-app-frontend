@@ -24,7 +24,7 @@
       <span>
         <h4>Diety<br></h4><mat-form-field appearance="fill" class="choose">
         <mat-label>Diety</mat-label>
-        <mat-select (openedChange)="filterDiets($event)" [formControl]="diets" multiple>
+        <mat-select (openedChange)="filterDiets()" [formControl]="diets" multiple>
           <mat-option *ngFor="let diet of dietList" [value]="diet">{{diet}}</mat-option>
         </mat-select>
         </mat-form-field>

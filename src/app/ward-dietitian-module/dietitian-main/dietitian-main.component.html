@@ -17,7 +17,7 @@
       <span>
         <h4>Oddziały</h4><mat-form-field appearance="fill" class="choose">
         <mat-label>Oddziały</mat-label>
-        <mat-select (openedChange)="filterWards($event)" [formControl]="wards" multiple>
+        <mat-select (openedChange)="filterWards()" [formControl]="wards" multiple>
           <mat-option *ngFor="let ward of wardList" [value]="ward">{{ward}}</mat-option>
         </mat-select>
         </mat-form-field>
@@ -25,7 +25,7 @@
       <span>
         <h4>Diety<br></h4><mat-form-field appearance="fill" class="choose">
         <mat-label>Diety</mat-label>
-        <mat-select (openedChange)="filterDiets($event)" [formControl]="diets" multiple>
+        <mat-select (openedChange)="filterDiets()" [formControl]="diets" multiple>
           <mat-option *ngFor="let diet of dietList" [value]="diet">{{diet}}</mat-option>
         </mat-select>
         </mat-form-field>

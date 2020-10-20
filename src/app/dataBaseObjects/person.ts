@@ -4,5 +4,5 @@ export interface Person extends Resource<number> {
   firstName: string;
   lastName: string;
   birthDate: string;
-  pesel: number;
+  pesel: string;
 }

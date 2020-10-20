@@ -111,13 +111,13 @@ export class DietitianMainComponent implements OnInit {
   }
 
 
-  filterDiets($event: boolean): void {
+  filterDiets(): void {
 
     this.selectedDiets = (this.diets.value && this.diets.value.toString()).split(',');
     this.predicateData();
   }
 
-  filterWards($event: boolean): void {
+  filterWards(): void {
 
     this.selectedWards = (this.wards.value && this.wards.value.toString()).split(',');
     this.predicateData();

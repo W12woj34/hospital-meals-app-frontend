@@ -15,7 +15,6 @@ import {Page} from '../../dataBaseObjects/page';
 /** Constants used to fill up our data base. */
 
 
-
 @Component({
   selector: 'app-nurse-main',
   templateUrl: './nurse-main.component.html',
@@ -31,7 +30,6 @@ export class NurseMainComponent implements OnInit {
   dietList: string[];
   diets = new FormControl();
   filterValue = '';
-  dialogResult;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -56,7 +54,7 @@ export class NurseMainComponent implements OnInit {
 
         this.dietService.getPage()
           .subscribe(diets => {
-            this.dietList = diets.content.map(d => d.name);
+            this.dietList = diets.content.map(d => d.name).concat(['BRAK']);
             this.selectedDiets = this.dietList;
             this.bindData();
 
@@ -92,18 +90,18 @@ export class NurseMainComponent implements OnInit {
   openPopup(id: string): void {
     const dialogRef = this.dialog.open(NursePatientDetailsComponent, {
       minWidth: '50%',
-      data: {id, result: this.dialogResult}
+      data: {id}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dialogResult = result;
-      console.log('The dialog was closed');
-      console.log(this.dialogResult);
+      if (result === true) {
+        this.getNewPatients();
+      }
     });
   }
 
 
-  filterDiets($event: boolean): void {
+  filterDiets(): void {
 
     this.selectedDiets = (this.diets.value && this.diets.value.toString()).split(',');
     this.predicateData();
@@ -126,18 +124,37 @@ export class NurseMainComponent implements OnInit {
   openRegistration(): void {
     const dialogRef = this.dialog.open(NursePatientRegistrationComponent, {
       minWidth: '50%',
-      data: {result: this.dialogResult}
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dialogResult = result;
-      console.log('The dialog was closed');
-      console.log(this.dialogResult);
+      if (result === true) {
+        this.getNewPatients();
+      }
     });
   }
 
   openOrders(): void {
     this.router.navigateByUrl('wardNurseOrders');
+  }
+
+  getNewPatients(): void {
+    this.patientService.getPatientsData('data-ward')
+      .subscribe(patients => {
+        this.users = patients;
+        this.users.content.map(u => {
+          if (u.diet === '') {
+            u.diet = 'BRAK';
+          }
+        });
+
+        this.bindData();
+        this.bufferDataSource = this.users.content.map(x => Object.assign({}, x));
+        this.dataSource = new MatTableDataSource(this.bufferDataSource);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        setTimeout(() => this.dataSource.sort = this.sort);
+
+      });
   }
 }
 

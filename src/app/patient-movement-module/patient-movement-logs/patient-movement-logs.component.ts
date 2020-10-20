@@ -86,7 +86,7 @@ export class PatientMovementLogsComponent implements OnInit {
     this.logs.setValue(anotherListType);
   }
 
-  applyFilter(event: Event): void {
+  applyFilter(): void {
     this.filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = this.filterValue.trim().toLowerCase();
 
@@ -98,7 +98,7 @@ export class PatientMovementLogsComponent implements OnInit {
   }
 
 
-  filterLogs($event: boolean): void {
+  filterLogs(): void {
     this.selectedLogs = (this.logs.value && this.logs.value.toString()).split(',');
     this.predicateData();
   }

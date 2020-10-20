@@ -1,15 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
-import {NgForm} from '@angular/forms';
 import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-dialog.component';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-
-export interface PatientRegister {
-  pesel: string;
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-}
+import {Patient} from '../../dataBaseObjects/patient';
+import {DatePipe} from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {PatientService} from '../../service/base/patient.service';
+import {HttpParams} from '@angular/common/http';
+import {Stay} from '../../dataBaseObjects/stay';
+import {EmployeeService} from '../../service/base/employee.service';
+import {WardNurseService} from '../../service/base/ward-nurse.service';
+import {StayService} from '../../service/base/stay.service';
 
 @Component({
   selector: 'app-nurse-patient-registration',
@@ -20,43 +21,84 @@ export interface PatientRegister {
 
 export class NursePatientRegistrationComponent implements OnInit {
 
-  patient: PatientRegister = {pesel: '', firstName: '', lastName: '', birthDate: ''};
+  patient: Patient = {id: null, firstName: '', lastName: '', birthDate: '', pesel: null, additionalInfo: ''};
+  birthDate: Date = new Date();
   color: ThemePalette = 'primary';
   firstTime = false;
   dialogResult;
 
   constructor(public dialogRef: MatDialogRef<NursePatientRegistrationComponent>,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private datePipe: DatePipe,
+              private snackBar: MatSnackBar,
+              private patientService: PatientService,
+              private employeeService: EmployeeService,
+              private nurseService: WardNurseService,
+              private stayService: StayService) {
   }
 
   ngOnInit(): void {
   }
 
-  onSubmit(registerForm: NgForm): void {
+  onSubmit(): void {
+
+    if (Number(this.patient.pesel) < 10000000000 || Number(this.patient.pesel) > 99999999999) {
+      this.snackBar.open('Niepoprawny pesel', 'OK', {
+        duration: 4000,
+      });
+      return;
+    }
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       minWidth: 'fit-content',
       data: {result: this.dialogResult}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dialogResult = result;
-      console.log(this.dialogResult);
-      if (this.dialogResult === false) {
-        return;
+      if (result === true) {
+
+        if (this.firstTime === false) {
+          const httpParams = new HttpParams().set('pesel', this.patient.pesel);
+          this.patientService.getPageSpec('', httpParams).subscribe(patients => {
+            if (patients.content.length === 0) {
+              this.snackBar.open('Brak pacjenta w bazie danych', 'OK', {
+                duration: 4000,
+              });
+              return;
+            } else {
+              this.createStay(patients.content[0].id);
+            }
+          });
+        } else {
+          this.patient.birthDate = this.datePipe.transform(this.birthDate, 'yyyy-MM-dd');
+          this.patientService.post(this.patient , '').subscribe(patient => {
+            this.createStay(patient.id);
+          });
+        }
       }
-
-    /*  this.api.login('/login', this.patient).subscribe(
-        (r => {
-
-          }
-        ));
-
-     */
-// tu trzeba będzie zapisać wszystko
-      console.log('The dialog was closed');
-      this.dialogRef.close(true);
     });
 
-
   }
+
+  createStay(patientId: number): void {
+    this.employeeService.getEmployeeData('data/personal').subscribe(user => {
+      this.nurseService.get(user.id.toString()).subscribe(nurse => {
+        const stay: Stay = {
+          id: null,
+          patientId,
+          admissionDate: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+          releaseDate: null,
+          archived: false,
+          ward: nurse.ward
+        };
+        this.stayService.post(stay, '').subscribe(_ => {
+          this.snackBar.open('Dodano pacjenta!', 'OK', {
+            duration: 4000,
+          });
+          this.dialogRef.close(true);
+        });
+      });
+    });
+  }
+
 }

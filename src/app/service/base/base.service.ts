@@ -49,7 +49,7 @@ export abstract class BaseService<T extends Resource<ID>, ID> {
       );
   }
 
-  put(dto: T, path?: string): Observable<T> {
+  put(dto: T, path: string): Observable<T> {
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
     return this.http.put(url, dto, this.httpOptions).pipe(
       tap(_ => console.log(`put Dto to ${url}`)),
@@ -57,7 +57,7 @@ export abstract class BaseService<T extends Resource<ID>, ID> {
     );
   }
 
-  post(dto: T, path?: string): Observable<T> {
+  post(dto: T, path: string): Observable<T> {
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
     return this.http.post<T>(url, dto, this.httpOptions).pipe(
       tap((newDto: T) => console.log(`post Dto to ${url}, with id ${newDto.id}`)),

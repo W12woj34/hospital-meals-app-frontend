@@ -112,7 +112,7 @@ export class PatientMovementWorkersComponent implements OnInit {
   }
 
 
-  filterDiets($event: boolean): void {
+  filterRoles(): void {
 
     this.selectedRoles = (this.roles.value && this.roles.value.toString()).split(',');
     this.predicateData();

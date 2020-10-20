@@ -7,16 +7,15 @@
   </mat-slide-toggle>
   <br>
   <br>
-  <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="register">
+  <form #registerForm="ngForm" class="register">
     <div class="patientData">
       <mat-form-field>
         <label>
           <input matInput
                  required
                  [(ngModel)]="patient.pesel"
-                 class="pesel"
                  name="pesel"
-                 type="text"
+                 type="number"
                  placeholder="pesel">
         </label>
       </mat-form-field>
@@ -27,7 +26,6 @@
           <input matInput
                  required
                  [(ngModel)]="patient.firstName"
-                 class="firstName"
                  name="firstName"
                  type="text"
                  placeholder="Imię">
@@ -39,7 +37,6 @@
             <input matInput
                    required
                    [(ngModel)]="patient.lastName"
-                   class="lastName"
                    name="lastName"
                    type="text"
                    placeholder="Nazwisko">
@@ -50,8 +47,10 @@
           <mat-label>Data Urodzenia</mat-label>
           <input matInput
                  required
-                 [matDatepicker]="picker"
-                 [(ngModel)]="patient.birthDate">
+                 [(ngModel)]="birthDate"
+                 name="birthDate"
+                 type="text"
+                 [matDatepicker]="picker">
           <mat-datepicker-toggle matSuffix [for]="picker">
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>
@@ -62,7 +61,8 @@
 
 
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="registerForm.form.invalid">
+      <button (click)="onSubmit()" mat-raised-button class="save_button btn btn-primary"
+              [disabled]="registerForm.form.invalid" color="primary">
         Zarejestruj
       </button>
     </div>

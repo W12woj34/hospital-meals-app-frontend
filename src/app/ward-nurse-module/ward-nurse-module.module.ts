@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { NurseMainComponent } from './nurse-main/nurse-main.component';
 import {MaterialModule} from '../material/material.module';
 import {ToolsModule} from '../tools-module/tools-module.module';
@@ -26,6 +26,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         FormsModule,
         MatCheckboxModule
     ],
+  providers: [
+    DatePipe
+  ],
   entryComponents: [NurseMainComponent, NursePatientDetailsComponent]
 })
 export class WardNurseModule { }

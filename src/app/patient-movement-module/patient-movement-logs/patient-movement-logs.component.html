@@ -21,7 +21,7 @@
       <span>
         <h4>Typ akcji</h4><mat-form-field appearance="fill" class="choose">
         <mat-label>Typ akcji</mat-label>
-        <mat-select (openedChange)="filterLogs($event)" [formControl]="logs" multiple>
+        <mat-select (openedChange)="filterLogs()" [formControl]="logs" multiple>
           <mat-option *ngFor="let log of logList" [value]="log">{{log}}</mat-option>
         </mat-select>
         </mat-form-field>
@@ -32,7 +32,7 @@
 
     <mat-form-field>
       <mat-label>Wyszukiwarka</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="np. Zaktualizowanie" #input>
+      <input matInput (keyup)="applyFilter()" placeholder="np. Zaktualizowanie" #input>
     </mat-form-field>
 
     <div class="mat-elevation-z8">

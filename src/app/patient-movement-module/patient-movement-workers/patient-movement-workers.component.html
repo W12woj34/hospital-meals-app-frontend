@@ -24,7 +24,7 @@
       <span>
         <h4>Rola pracownika<br></h4><mat-form-field appearance="fill" class="choose">
         <mat-label>Role</mat-label>
-        <mat-select (openedChange)="filterDiets($event)" [formControl]="roles" multiple>
+        <mat-select (openedChange)="filterRoles()" [formControl]="roles" multiple>
           <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
         </mat-select>
         </mat-form-field>

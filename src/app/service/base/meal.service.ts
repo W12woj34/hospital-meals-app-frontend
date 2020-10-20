@@ -36,7 +36,28 @@ export class MealService extends BaseSpecificationService<Meal, number> {
       );
   }
 
-  setPatientMeals(dto: PatientMealOrder[], path?: string): Observable<void> {
+  getPatientMealOrders(patientId: number,
+                       page: number = BaseService.DEFAULT_PAGE,
+                       pageSize: number = BaseService.DEFAULT_PAGE_SIZE,
+                       sortFields?: string[]
+  ): Observable<Page<PatientMealOrder>> {
+
+    let httpParams = new HttpParams()
+      .set('page', page.toString())
+      .set('size', pageSize.toString());
+
+    if (sortFields) {
+      httpParams = httpParams.set('sort', sortFields.toString());
+    }
+    const url = `${this.apiURL}/${this.endpoint}/meal-order/${patientId}`;
+    return this.http.get<Page<PatientMealOrder>>(url, {params: httpParams})
+      .pipe(
+        tap(x => console.log(`fetched ${x.content.length} dtos from ${url}?${httpParams.toString()}`)),
+        catchError(this.handleError<Page<PatientMealOrder>>('getPage', new Page()))
+      );
+  }
+
+  setPatientMeals(dto: PatientMealOrder[], path: string): Observable<void> {
 
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
     console.log(url);
