@@ -32,7 +32,8 @@ export class PatientMovementAddWorkerComponent implements OnInit {
 
   roles = ROLES;
   wards: Ward[];
-  worker: Employee = {id: null, firstName: '', lastName: '', birthDate: '', pesel: null, loginId: null};
+  person: Person = {id: null, firstName: '', lastName: '', birthDate: '', pesel: null};
+  worker: Employee = {id: null, loginId: null, person: this.person};
   login: Login = {id: null, username: '', password: ''};
   role = '';
   passwordConfirm = '';
@@ -65,7 +66,7 @@ export class PatientMovementAddWorkerComponent implements OnInit {
 
   onSubmit(): void {
 
-    if (Number(this.worker.pesel) < 10000000000 || Number(this.worker.pesel) > 99999999999) {
+    if (Number(this.person.pesel) < 10000000000 || Number(this.person.pesel) > 99999999999) {
       this.snackBar.open('Niepoprawny pesel', 'OK', {
         duration: 4000,
       });
@@ -80,72 +81,90 @@ export class PatientMovementAddWorkerComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
 
-        if (this.firstTime === false) {
-          console.log('Zaznaczono że powinien być w bazie');
+        this.loginService.isExistUsername(this.login.username).subscribe(isTaken => {
+          if (isTaken === true) {
+            console.log('Nazwa użytkownika zajęta');
+            this.snackBar.open('Nazwa użytkownika jest już zajęta', 'OK', {
+              duration: 4000,
+            });
+            return;
+          }
+          if (this.firstTime === false) {
+            console.log('Zaznaczono że powinien być w bazie');
 
-          const httpParams = new HttpParams().set('pesel', this.worker.pesel);
-          this.personService.getPageSpec('', httpParams).subscribe(workers => {
-            if (workers.content.length === 0) {
-              console.log('Nie ma go w bazie');
-              this.snackBar.open('Brak pracownika w bazie danych', 'OK', {
-                duration: 4000,
-              });
-              return;
-            } else {
-              console.log('Jest w bazie');
-              this.employeeService.isExist(String(workers.content[0].id))
-                .subscribe(isExists => {
-                  if (isExists === true) {
-                    console.log('Jest zatrudniony');
-                    this.snackBar.open('Pracownik jest już zatrudniony!', 'OK', {
-                      duration: 4000,
-                    });
-                    return;
-                  }
-                  console.log('Nie jest zatrudniony');
-                  this.worker.birthDate = workers.content[0].birthDate;
-                  this.worker.firstName = workers.content[0].firstName;
-                  this.worker.lastName = workers.content[0].lastName;
-                  this.registerWorker(this.worker);
+
+            const httpParams = new HttpParams().set('pesel', this.person.pesel);
+            this.personService.getPageSpec('', httpParams).subscribe(workers => {
+              if (workers.content.length === 0) {
+                console.log('Nie ma go w bazie');
+                this.snackBar.open('Brak pracownika w bazie danych', 'OK', {
+                  duration: 4000,
                 });
-            }
-          });
+                return;
+              } else {
+                console.log('Jest w bazie');
+                this.employeeService.isExist(String(workers.content[0].id))
+                  .subscribe(isExists => {
+                    if (isExists === true) {
+                      console.log('Jest zatrudniony');
+                      this.snackBar.open('Pracownik jest już zatrudniony!', 'OK', {
+                        duration: 4000,
+                      });
+                      return;
+                    }
+                    this.person.id = workers.content[0].id;
+                    console.log('Nie jest zatrudniony');
+                    this.registerWorker();
+                  });
+              }
+            });
 
-        } else {
-          console.log('Zaznaczono że nie powinien być w bazie');
-          const httpParams = new HttpParams().set('pesel', this.worker.pesel);
-          this.personService.getPageSpec('', httpParams).subscribe(workers => {
-            if (workers.content.length !== 0) {
-              console.log('Jest już w bazie');
-              this.snackBar.open('Pracownik już znajduje się w bazie danych!', 'OK', {
-                duration: 4000,
-              });
-              return;
-            } else {
-              this.worker.birthDate = this.datePipe.transform(this.birthDate, 'yyyy-MM-dd');
-              this.registerWorker(this.worker);
-            }
-          });
+          } else {
+            console.log('Zaznaczono że nie powinien być w bazie');
+            const httpParams = new HttpParams().set('pesel', this.person.pesel);
+            this.personService.getPageSpec('', httpParams).subscribe(workers => {
+              if (workers.content.length !== 0) {
+                console.log('Jest już w bazie');
+                this.snackBar.open('Pracownik już znajduje się w bazie danych!', 'OK', {
+                  duration: 4000,
+                });
+                return;
+              } else {
+                this.person.birthDate = this.datePipe.transform(this.birthDate, 'yyyy-MM-dd');
+                this.registerPerson();
+              }
+            });
 
-        }
+          }
+
+        });
+
       }
     });
 
   }
 
+  private registerPerson(): void {
+    this.personService.post(this.person, '').subscribe(person => {
+      console.log(this.person.id);
+      this.person.id = person.id;
+      console.log(this.person.id);
+      this.registerWorker();
+    });
+  }
 
-  registerWorker(worker: Person): void {
+
+  registerWorker(): void {
 
     this.loginService.post(this.login, '').subscribe(login => {
       console.log('utworzono dane logowania');
       this.worker = {
-        id: worker.id,
-        firstName: worker.firstName,
-        lastName: worker.lastName,
-        birthDate: worker.birthDate,
-        pesel: worker.pesel,
-        loginId: login.id
+        id: this.person.id,
+        loginId: login.id,
+        person: this.person
       };
+      console.log(this.person.id);
+      console.log(this.worker.id);
       console.log(this.role);
       if (this.role === ROLES[0]) {
         this.wardDietitianService.post(this.worker, '').subscribe(() => {
@@ -159,14 +178,11 @@ export class PatientMovementAddWorkerComponent implements OnInit {
         this.kitchenDietitianService.post(this.worker, '').subscribe(() => {
           this.displayInfo();
         });
-      } else if (this.role === ROLES[4]) {
+      } else if (this.role === ROLES[3]) {
         const dto: WardNurse = {
-          id: this.worker.id,
-          firstName: this.worker.firstName,
-          lastName: this.worker.lastName,
-          birthDate: this.worker.birthDate,
-          pesel: this.worker.pesel,
-          loginId: this.worker.id,
+          id: this.person.id,
+          loginId: login.id,
+          person: this.person,
           ward: this.ward
         };
 
@@ -187,4 +203,5 @@ export class PatientMovementAddWorkerComponent implements OnInit {
     });
     this.dialogRef.close(true);
   }
+
 }

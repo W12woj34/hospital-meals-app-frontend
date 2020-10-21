@@ -14,6 +14,16 @@ export class LoginService extends BaseService<Login, number> {
     super(httpClient, 'logins');
   }
 
+
+  isExistUsername(path: string): Observable<boolean> {
+    const url = `${this.apiURL}/${this.endpoint}/exists-username/${path}`;
+    return this.http.get<boolean>(url)
+      .pipe(
+        tap(_ => console.log(`fetched get from ${url}`)),
+        catchError(this.handleError<boolean>(`get from ${path}`))
+      );
+  }
+
   changePassword(oldPassword: string, newPassword: string): Observable<boolean> {
     const url = `${this.apiURL}/${this.endpoint}/change-password/?oldPassword=${oldPassword}&newPassword=${newPassword}`;
     return this.http.put(url, null, this.httpOptions).pipe(

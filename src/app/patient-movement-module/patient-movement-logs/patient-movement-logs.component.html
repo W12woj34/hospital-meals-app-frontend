@@ -49,8 +49,13 @@
         </ng-container>
 
         <ng-container matColumnDef="user">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Użytkownik</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Pracownik</th>
           <td mat-cell *matCellDef="let row"> {{row.user}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="target">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Pacjent</th>
+          <td mat-cell *matCellDef="let row"> {{row.target}} </td>
         </ng-container>
 
         <ng-container matColumnDef="log">

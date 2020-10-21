@@ -12,6 +12,7 @@ import {EmployeeService} from '../../service/base/employee.service';
 import {WardNurseService} from '../../service/base/ward-nurse.service';
 import {StayService} from '../../service/base/stay.service';
 import {PersonService} from '../../service/base/person.service';
+import {Person} from '../../dataBaseObjects/person';
 
 @Component({
   selector: 'app-nurse-patient-registration',
@@ -22,7 +23,8 @@ import {PersonService} from '../../service/base/person.service';
 
 export class NursePatientRegistrationComponent implements OnInit {
 
-  patient: Patient = {id: null, firstName: '', lastName: '', birthDate: '', pesel: null, additionalInfo: ''};
+  person: Person = {id: null, firstName: '', lastName: '', birthDate: '', pesel: null };
+  patient: Patient = {id: null, additionalInfo: '', person: this.person};
   birthDate: Date = new Date();
   color: ThemePalette = 'primary';
   firstTime = false;
@@ -44,7 +46,7 @@ export class NursePatientRegistrationComponent implements OnInit {
 
   onSubmit(): void {
 
-    if (Number(this.patient.pesel) < 10000000000 || Number(this.patient.pesel) > 99999999999) {
+    if (Number(this.person.pesel) < 10000000000 || Number(this.person.pesel) > 99999999999) {
       this.snackBar.open('Niepoprawny pesel', 'OK', {
         duration: 4000,
       });
@@ -60,31 +62,31 @@ export class NursePatientRegistrationComponent implements OnInit {
       if (result === true) {
 
         if (this.firstTime === false) {
-          const httpParams = new HttpParams().set('pesel', this.patient.pesel);
-          this.personService.getPageSpec('', httpParams).subscribe(patients => {
-            if (patients.content.length === 0) {
+          const httpParams = new HttpParams().set('pesel', this.person.pesel);
+          this.personService.getPageSpec('', httpParams).subscribe(people => {
+            if (people.content.length === 0) {
               this.snackBar.open('Brak pacjenta w bazie danych', 'OK', {
                 duration: 4000,
               });
               return;
             } else {
               this.patient = {
-                id: patients.content[0].id,
-                firstName: patients.content[0].firstName,
-                lastName: patients.content[0].lastName,
-                birthDate: patients.content[0].birthDate,
-                pesel: patients.content[0].pesel,
-                additionalInfo: ''
+                id: people.content[0].id,
+                additionalInfo: '',
+                person: this.person
               };
               this.patientService.post(this.patient, '').subscribe(() => {
-                this.createStay(patients.content[0].id);
+                this.createStay(people.content[0].id);
               });
             }
           });
         } else {
-          this.patient.birthDate = this.datePipe.transform(this.birthDate, 'yyyy-MM-dd');
-          this.patientService.post(this.patient, '').subscribe(patient => {
-            this.createStay(patient.id);
+          this.person.birthDate = this.datePipe.transform(this.birthDate, 'yyyy-MM-dd');
+          this.personService.post(this.person, '').subscribe( person => {
+            this.person.id = person.id;
+            this.patientService.post(this.patient, '').subscribe(patient => {
+              this.createStay(patient.id);
+            });
           });
         }
       }

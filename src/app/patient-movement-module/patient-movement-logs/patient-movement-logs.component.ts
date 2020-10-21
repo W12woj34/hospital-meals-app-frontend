@@ -15,6 +15,7 @@ export interface UserData {
   idLog: string;
   timestamp: string;
   user: string;
+  target: string;
   log: string;
 }
 
@@ -26,7 +27,7 @@ export interface UserData {
 export class PatientMovementLogsComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['idLog', 'timestamp', 'user', 'log'];
+  displayedColumns: string[] = ['idLog', 'timestamp', 'user', 'target', 'log'];
   bufferDataSource;
   dataSource: MatTableDataSource<UserData>;
   logsPage: Page<Log>;
@@ -55,9 +56,14 @@ export class PatientMovementLogsComponent implements OnInit {
         this.logsPage = logs;
         this.logsPage.content.map(u => {
             this.personService.get(u.userId.toString())
-              .subscribe(p => {
-                this.users.push(
-                  createNewUser(u.id, u.timestamp, p.firstName + ' ' + p.lastName + ' - ' + p.pesel, u.event.eventName));
+              .subscribe(e => {
+                this.personService.get(u.userId.toString())
+                  .subscribe(p => {
+                    this.users.push(
+                      createNewUser(u.id, u.timestamp, e.firstName + ' ' + e.lastName + ' - ' + e.pesel,
+                        p.firstName + ' ' + p.lastName + ' - ' + p.pesel, u.event.eventName));
+                  });
+
               });
           }
         );
@@ -127,12 +133,14 @@ export class PatientMovementLogsComponent implements OnInit {
 function createNewUser(id: number,
                        timestamp: string,
                        user: string,
+                       target: string,
                        log: string): UserData {
 
   return {
     idLog: id.toString(),
     timestamp,
     user,
+    target,
     log
   };
 }
