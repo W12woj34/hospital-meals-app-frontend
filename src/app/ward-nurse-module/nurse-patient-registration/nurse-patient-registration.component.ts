@@ -11,6 +11,7 @@ import {Stay} from '../../dataBaseObjects/stay';
 import {EmployeeService} from '../../service/base/employee.service';
 import {WardNurseService} from '../../service/base/ward-nurse.service';
 import {StayService} from '../../service/base/stay.service';
+import {PersonService} from '../../service/base/person.service';
 
 @Component({
   selector: 'app-nurse-patient-registration',
@@ -31,6 +32,7 @@ export class NursePatientRegistrationComponent implements OnInit {
               public dialog: MatDialog,
               private datePipe: DatePipe,
               private snackBar: MatSnackBar,
+              private personService: PersonService,
               private patientService: PatientService,
               private employeeService: EmployeeService,
               private nurseService: WardNurseService,
@@ -59,19 +61,29 @@ export class NursePatientRegistrationComponent implements OnInit {
 
         if (this.firstTime === false) {
           const httpParams = new HttpParams().set('pesel', this.patient.pesel);
-          this.patientService.getPageSpec('', httpParams).subscribe(patients => {
+          this.personService.getPageSpec('', httpParams).subscribe(patients => {
             if (patients.content.length === 0) {
               this.snackBar.open('Brak pacjenta w bazie danych', 'OK', {
                 duration: 4000,
               });
               return;
             } else {
-              this.createStay(patients.content[0].id);
+              this.patient = {
+                id: patients.content[0].id,
+                firstName: patients.content[0].firstName,
+                lastName: patients.content[0].lastName,
+                birthDate: patients.content[0].birthDate,
+                pesel: patients.content[0].pesel,
+                additionalInfo: ''
+              };
+              this.patientService.post(this.patient, '').subscribe(() => {
+                this.createStay(patients.content[0].id);
+              });
             }
           });
         } else {
           this.patient.birthDate = this.datePipe.transform(this.birthDate, 'yyyy-MM-dd');
-          this.patientService.post(this.patient , '').subscribe(patient => {
+          this.patientService.post(this.patient, '').subscribe(patient => {
             this.createStay(patient.id);
           });
         }

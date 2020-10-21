@@ -87,14 +87,14 @@ export class PatientMovementWorkersComponent implements OnInit {
 
   addWorker(): void {
     const dialogRef = this.dialog.open(PatientMovementAddWorkerComponent, {
-      minWidth: '50%',
+      minWidth: '30%',
       data: {result: this.dialogResult}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dialogResult = result;
-      console.log('The dialog was closed');
-      console.log(this.dialogResult);
+      if (result === true) {
+        this.getNewEmployees();
+      }
     });
   }
 
@@ -105,9 +105,9 @@ export class PatientMovementWorkersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dialogResult = result;
-      console.log('The dialog was closed');
-      console.log(this.dialogResult);
+      if (result === true) {
+        this.getNewEmployees();
+      }
     });
   }
 
@@ -129,6 +129,19 @@ export class PatientMovementWorkersComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getNewEmployees(): void {
+
+    this.employeeService.getEmployeesData('data')
+      .subscribe(employees => {
+        this.users = employees;
+        this.bindData();
+        this.bufferDataSource = this.users.content.map(x => Object.assign({}, x));
+        this.dataSource = new MatTableDataSource(this.bufferDataSource);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        setTimeout(() => this.dataSource.sort = this.sort);
+      });
   }
 }
 

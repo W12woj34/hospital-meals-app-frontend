@@ -40,6 +40,15 @@ export abstract class BaseService<T extends Resource<ID>, ID> {
       );
   }
 
+  isExist(path: string): Observable<boolean> {
+    const url = `${this.apiURL}/${this.endpoint}/exists/${path}`;
+    return this.http.get<boolean>(url)
+      .pipe(
+        tap(_ => console.log(`fetched get from ${url}`)),
+        catchError(this.handleError<boolean>(`get from ${path}`))
+      );
+  }
+
   get(path: string): Observable<T> {
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
     return this.http.get<T>(url)

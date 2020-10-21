@@ -3,20 +3,19 @@
     [(ngModel)]="firstTime"
     [color]="color"
     class="slider">
-    Czy dane pracownika, są już w bazie szpitala?
+    Czy danych pracownika nie ma w bazie danych szpitala?
   </mat-slide-toggle>
   <br>
   <br>
-  <form #workerForm="ngForm" (ngSubmit)="onSubmit(workerForm)" class="register">
+  <form #workerForm="ngForm" class="register">
     <div class="patientData">
       <mat-form-field>
         <label>
           <input matInput
                  required
                  [(ngModel)]="worker.pesel"
-                 class="pesel"
                  name="pesel"
-                 type="text"
+                 type="number"
                  placeholder="pesel">
         </label>
       </mat-form-field>
@@ -27,7 +26,6 @@
             <input matInput
                    required
                    [(ngModel)]="worker.firstName"
-                   class="firstName"
                    name="firstName"
                    type="text"
                    placeholder="Imię">
@@ -39,7 +37,6 @@
             <input matInput
                    required
                    [(ngModel)]="worker.lastName"
-                   class="lastName"
                    name="lastName"
                    type="text"
                    placeholder="Nazwisko">
@@ -48,22 +45,26 @@
         <br>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Data Urodzenia</mat-label>
-          <input matInput
-                 required
-                 [matDatepicker]="picker"
-                 [(ngModel)]="worker.birthDate">
-          <mat-datepicker-toggle matSuffix [for]="picker">
-            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-          </mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-
+          <label>
+            <input matInput
+                   required
+                   [(ngModel)]="birthDate"
+                   name="birthDate"
+                   type="text"
+                   [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </label>
         </mat-form-field>
         <br>
       </div>
 
       <mat-form-field appearance="fill">
         <mat-label>Rola pracownika</mat-label>
-        <mat-select [(ngModel)]="worker.role" name="food"
+        <mat-select [(ngModel)]="role"
+                    name="role"
                     required>
           <mat-option *ngFor="let role of roles" [value]="role">
             {{role}}
@@ -72,17 +73,52 @@
       </mat-form-field>
       <br>
       <div *ngIf="isWardNurse()">
-      <mat-form-field appearance="fill">
-        <mat-label>Oddział</mat-label>
-        <mat-select [(ngModel)]="worker.ward" name="ward">
-          <mat-option *ngFor="let ward of wards" [value]="ward.id">
-            {{ward.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Oddział</mat-label>
+          <mat-select [(ngModel)]="ward" name="ward">
+            <mat-option *ngFor="let ward of wards" [value]="ward.id">
+              {{ward.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="workerForm.form.invalid">
-        Zarejestruj
+      <br>
+      <mat-form-field>
+        <label>
+          <input matInput
+                 required
+                 [(ngModel)]="login.username"
+                 name="username"
+                 type="text"
+                 placeholder="Nazwa użytkownika">
+        </label>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <label>
+          <input matInput
+                 required
+                 [(ngModel)]="login.password"
+                 name="password"
+                 type="password"
+                 placeholder="Hasło">
+        </label>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <label>
+          <input matInput
+                 required
+                 [(ngModel)]="passwordConfirm"
+                 name="passwordConfirm"
+                 type="password"
+                 placeholder="Potwierdź hasło">
+        </label>
+      </mat-form-field>
+      <br>
+      <button (click)="onSubmit()" mat-raised-button class="save_button btn btn-primary"
+              [disabled]="workerForm.form.invalid || login.password !== passwordConfirm" color="primary">
+        Dodaj Pracownika
       </button>
     </div>
     <br>

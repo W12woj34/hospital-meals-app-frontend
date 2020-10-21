@@ -32,7 +32,7 @@
 
     <mat-form-field>
       <mat-label>Wyszukiwarka</mat-label>
-      <input matInput (keyup)="applyFilter()" placeholder="np. Zaktualizowanie" #input>
+      <input matInput (keyup)="applyFilter($event)" placeholder="np. Zaktualizowanie" #input>
     </mat-form-field>
 
     <div class="mat-elevation-z8">

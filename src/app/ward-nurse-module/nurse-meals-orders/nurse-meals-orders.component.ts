@@ -147,7 +147,7 @@ export class NurseMealsOrdersComponent implements OnInit {
       if (this.dialogResult) {
         console.log(this.dialogResult);
         this.mealService.setPatientMeals(this.patients.content, 'meal-order').subscribe(() => {
-          this.snackBar.open('Wypisano pacjenta!', 'OK', {
+          this.snackBar.open('Zaktualizowano zamównienia!', 'OK', {
             duration: 4000,
           });
         });

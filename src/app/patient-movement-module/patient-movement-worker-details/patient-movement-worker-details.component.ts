@@ -4,17 +4,12 @@ import {ConfirmDialogComponent} from '../../tools-module/confirm-dialog/confirm-
 import {PatientMovementWorkerPasswordChangeComponent} from '../patient-movement-worker-password-change/patient-movement-worker-password-change.component';
 import {EmployeeService} from '../../service/base/employee.service';
 import {EmployeeData} from '../../dataBaseObjects/employee-data';
-
-export interface WorkerData {
-  idWorker: number;
-  pesel: string;
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  role: string;
-  ward: string;
-}
-
+import {LoginService} from '../../service/base/login.service';
+import {WardNurseService} from '../../service/base/ward-nurse.service';
+import {MainKitchenDietitianService} from '../../service/base/main-kitchen-dietitan.service';
+import {DietitianService} from '../../service/base/dietitian.service';
+import {PatientMovementService} from '../../service/base/patient-movement.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-patient-movement-worker-details',
@@ -24,12 +19,17 @@ export interface WorkerData {
 
 export class PatientMovementWorkerDetailsComponent implements OnInit {
 
-  dialogResult;
   worker: EmployeeData;
 
   constructor(public dialogRef: MatDialogRef<PatientMovementWorkerDetailsComponent>,
               public dialog: MatDialog,
               private employeeService: EmployeeService,
+              private loginService: LoginService,
+              private wardNurseService: WardNurseService,
+              private kitchenDietitianService: MainKitchenDietitianService,
+              private wardDietitianService: DietitianService,
+              private patientMovementService: PatientMovementService,
+              private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
@@ -49,20 +49,22 @@ export class PatientMovementWorkerDetailsComponent implements OnInit {
   onFire(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       minWidth: 'fit-content',
-      data: {result: this.dialogResult}
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dialogResult = result;
-      console.log(this.dialogResult);
-      if (this.dialogResult === false) {
+      if (result === false) {
         return;
       }
-      console.log('The dialog was closed');
-      this.dialogRef.close(true);
+      this.employeeService.get(this.data.id).subscribe(emp => {
+        this.employeeService.delete(String(this.data.id)).subscribe(() => {
+          this.loginService.delete(String(emp.loginId)).subscribe(() => {
+            this.displayInfo();
+          });
+        });
+      });
     });
 
-    // tu trzeba będzie zapisać wszystko
 
   }
 
@@ -70,43 +72,29 @@ export class PatientMovementWorkerDetailsComponent implements OnInit {
   onPassChange(): void {
     const dialogRef = this.dialog.open(PatientMovementWorkerPasswordChangeComponent, {
       minWidth: 'fit-content',
-      data: {result: this.dialogResult}
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dialogResult = result;
-      console.log(this.dialogResult);
-      if (this.dialogResult === false) {
+      if (result === false) {
         return;
       }
       console.log('The dialog was closed');
-      this.dialogRef.close(true);
+      this.dialogRef.close(false);
     });
-
-    // tu trzeba będzie zapisać wszystko
 
   }
 
   onConfirm(): void {
     console.log('The dialog was closed');
-    this.dialogRef.close(true);
-
-    // tu trzeba będzie zapisać wszystko
-
+    this.dialogRef.close(false);
   }
-}
 
-/** Builds and returns a new User. */
-function createNewUser(): WorkerData {
-
-  return {
-    idWorker: 11,
-    pesel: '98100403971',
-    firstName: 'Wojciech',
-    lastName: 'Szewczuk',
-    role: 'Pielęgniarka Oddziałowa',
-    birthDate: '04.10.1998',
-    ward: 'Onkologia'
-  };
+  displayInfo(): void {
+    this.snackBar.open('Usunięto Pracownika!', 'OK', {
+      duration: 4000,
+    });
+    this.dialogRef.close(true);
+  }
 }
 

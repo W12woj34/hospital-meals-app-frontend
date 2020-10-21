@@ -86,7 +86,7 @@ export class PatientMovementLogsComponent implements OnInit {
     this.logs.setValue(anotherListType);
   }
 
-  applyFilter(): void {
+  applyFilter(event: Event): void {
     this.filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = this.filterValue.trim().toLowerCase();
 
