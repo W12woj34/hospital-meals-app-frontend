@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {MovementMainComponent} from './movement-main/movement-main.component';
 import {ToolsModule} from '../tools-module/tools-module.module';
 import {MaterialModule} from '../material/material.module';
@@ -28,6 +28,9 @@ import { PatientMovementWorkerPasswordChangeComponent } from './patient-movement
     MatSelectModule,
     MatSortModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    DatePipe
   ],
   exports: [MovementMainComponent],
   entryComponents: [PatientMovementWorkersComponent, PatientMovementWorkerDetailsComponent, PatientMovementWorkerPasswordChangeComponent]

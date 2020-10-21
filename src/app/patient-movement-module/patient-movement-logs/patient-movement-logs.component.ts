@@ -57,15 +57,21 @@ export class PatientMovementLogsComponent implements OnInit {
         this.logsPage.content.map(u => {
             this.personService.get(u.userId.toString())
               .subscribe(e => {
-                this.personService.get(u.userId.toString())
+                this.personService.get(u.targetId.toString())
                   .subscribe(p => {
                     this.users.push(
                       createNewUser(u.id, u.timestamp, e.firstName + ' ' + e.lastName + ' - ' + e.pesel,
                         p.firstName + ' ' + p.lastName + ' - ' + p.pesel, u.event.eventName));
+                    this.users.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+                    this.bufferDataSource = this.users.map(x => Object.assign({}, x));
+                    this.dataSource = new MatTableDataSource(this.bufferDataSource);
+                    setTimeout(() => this.dataSource.paginator = this.paginator);
+                    setTimeout(() => this.dataSource.sort = this.sort);
                   });
 
               });
           }
+
         );
 
         this.eventService.getPage()
@@ -73,14 +79,7 @@ export class PatientMovementLogsComponent implements OnInit {
             this.logList = events.content.map(e => e.eventName);
             this.selectedLogs = this.logList;
             this.bindData();
-            this.users.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
-            this.bufferDataSource = this.users.map(x => Object.assign({}, x));
-            this.dataSource = new MatTableDataSource(this.bufferDataSource);
-            setTimeout(() => this.dataSource.paginator = this.paginator);
-            setTimeout(() => this.dataSource.sort = this.sort);
-            console.log(this.users);
           });
-
 
       });
 
@@ -129,7 +128,6 @@ export class PatientMovementLogsComponent implements OnInit {
   }
 }
 
-/** Builds and returns a new User. */
 function createNewUser(id: number,
                        timestamp: string,
                        user: string,

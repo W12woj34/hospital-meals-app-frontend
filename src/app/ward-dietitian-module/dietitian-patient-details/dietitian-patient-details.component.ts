@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
@@ -18,6 +18,11 @@ import {PatientDiet} from '../../dataBaseObjects/patient-diet';
 import {DietaryRestriction} from '../../dataBaseObjects/dietary-restriction';
 import {Diet} from '../../dataBaseObjects/diet';
 import {RestrictionStatus} from '../../dataBaseObjects/restriction-status';
+import {Patient} from '../../dataBaseObjects/patient';
+import {PersonService} from '../../service/base/person.service';
+import {DatePipe} from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {DietitianAddRestrictionComponent} from '../dietitian-add-restriction/dietitian-add-restriction.component';
 
 
 @Component({
@@ -26,6 +31,7 @@ import {RestrictionStatus} from '../../dataBaseObjects/restriction-status';
   styleUrls: ['./dietitian-patient-details.component.css']
 })
 export class DietitianPatientDetailsComponent implements OnInit {
+
 
   dialogResult;
   currentDiet: FormGroup;
@@ -44,14 +50,25 @@ export class DietitianPatientDetailsComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder,
+              private snackBar: MatSnackBar,
+              private datePipe: DatePipe,
               public dialogRef: MatDialogRef<DietitianPatientDetailsComponent>,
               public dialog: MatDialog,
               private patientService: PatientService,
+              private personService: PersonService,
               private dietService: DietService,
               private dietaryRestrictionService: DietaryRestrictionService,
               private restrictionStatusService: RestrictionStatusService,
               private patientDietService: PatientDietService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    this.additionalInfos = new FormGroup({
+      additionalInfos: new FormControl()
+    });
+
+    this.currentDiet = new FormGroup({
+      currentDiet: new FormControl()
+    });
   }
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
@@ -65,11 +82,8 @@ export class DietitianPatientDetailsComponent implements OnInit {
           this.patient.diet = 'BRAK';
         }
 
-        this.additionalInfos = this.fb.group({
-          additionalInfos: ['', Validators.required]
-        });
         this.additionalInfos.get('additionalInfos').setValue(this.patient.additionalInfo);
-
+        console.log();
       });
 
     this.dietaryRestrictionService.getPageSpec('', httpParams, 0, 20)
@@ -119,20 +133,68 @@ export class DietitianPatientDetailsComponent implements OnInit {
       if (this.dialogResult === false) {
         return;
       }
-      console.log('The dialog was closed');
+
+      this.personService.get(this.data.id).subscribe(person => {
+
+        const patient: Patient = {id: this.data.id, additionalInfo: this.additionalInfos.get('additionalInfos').value, person};
+        this.patientService.put(patient, this.data.id).subscribe();
+      });
+
+      console.log(this.currentDiet.get('currentDiet').value);
+      if (this.currentDiet.get('currentDiet').value !== null && this.currentDiet.get('currentDiet').value !== '') {
+        this.diets.content.forEach(d => {
+          if (d.endDate === null || d.endDate === '') {
+            d.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+          }
+          this.patientDietService.put(d, String(d.id)).subscribe();
+        });
+        const patientDietDto: PatientDiet = {
+          id: null,
+          startDate: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+          endDate: null,
+          patientId: this.data.id,
+          diet: this.currentDiet.get('currentDiet').value
+        };
+        this.patientDietService.post(patientDietDto, '').subscribe();
+      }
+
+      this.restrictions.content.forEach(r => {
+        this.dietaryRestrictionService.put(r, String(r.id)).subscribe();
+      });
+
+      this.snackBar.open('Zaktualizowano dane pacjenta!', 'OK', {
+        duration: 4000,
+      });
       this.dialogRef.close(true);
     });
-
-    // tu trzeba będzie zapisać wszystko
 
   }
 
   addRestriction(): void {
-    console.log(this.restrictions);
-    // todo dodaj nową restrykcje
-    this.dataSourceRestrictions = new MatTableDataSource(this.restrictions.content);
-    setTimeout(() => this.dataSourceRestrictions.paginator = this.paginator.toArray()[1]);
-    setTimeout(() => this.dataSourceRestrictions.sort = this.sort.toArray()[1]);
+    const dialogRef = this.dialog.open(DietitianAddRestrictionComponent, {
+      width: '30%',
+      data: {id: this.data.id, result: this.dialogResult}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === false) {
+        return;
+      }
+      this.getNewRestrictions();
+
+    });
+  }
+
+  getNewRestrictions(): void {
+    const httpParams = new HttpParams().set('patientId', this.data.id);
+    this.dietaryRestrictionService.getPageSpec('', httpParams, 0, 20)
+      .subscribe(restrictions => {
+        this.restrictions = restrictions;
+        this.dataSourceRestrictions = new MatTableDataSource(this.restrictions.content.reverse());
+        setTimeout(() => this.dataSourceRestrictions.paginator = this.paginator.toArray()[1]);
+        setTimeout(() => this.dataSourceRestrictions.sort = this.sort.toArray()[1]);
+      });
+
   }
 
   changeStatus(row: any): void {

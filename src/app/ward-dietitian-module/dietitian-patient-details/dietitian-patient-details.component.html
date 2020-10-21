@@ -1,7 +1,7 @@
 <mat-dialog-content>
   <section>
     <div class="inLineTop">
-  <span>
+  <span *ngIf="patient">
       <br>
       <br>
       <h3>
@@ -38,10 +38,13 @@
 
     <h2>Diety</h2>
     <form [formGroup]="currentDiet">
-      <mat-form-field appearance="fill" class="choose">
+      <mat-form-field appearance="fill" class="choose" *ngIf="dietList">
         <mat-label>Nowa dieta</mat-label>
         <mat-select formControlName="currentDiet">
-          <mat-option *ngFor="let diet of dietList.content" [value]="diet">{{diet.name}}</mat-option>
+          <mat-option *ngFor="let diet of dietList.content"
+                      [value]="diet">
+            {{diet.name}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </form>

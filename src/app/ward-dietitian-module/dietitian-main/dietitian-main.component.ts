@@ -104,9 +104,10 @@ export class DietitianMainComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dialogResult = result;
+      if (result === true) {
+        this.getNewPatients();
+      }
       console.log('The dialog was closed');
-      console.log(this.dialogResult);
     });
   }
 
@@ -137,6 +138,23 @@ export class DietitianMainComponent implements OnInit {
     }
   }
 
+
+  getNewPatients(): void {
+    this.patientService.getPatientsData('data')
+      .subscribe(patients => {
+        this.users = patients;
+        this.users.content.map(u => {
+          if (u.diet === '') {
+            u.diet = 'BRAK';
+          }
+        });
+
+        this.bufferDataSource = this.users.content.map(x => Object.assign({}, x));
+        this.dataSource = new MatTableDataSource(this.bufferDataSource);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        setTimeout(() => this.dataSource.sort = this.sort);
+      });
+  }
 
 }
 

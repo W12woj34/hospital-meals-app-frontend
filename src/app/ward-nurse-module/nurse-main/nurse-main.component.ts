@@ -148,7 +148,6 @@ export class NurseMainComponent implements OnInit {
           }
         });
 
-        this.bindData();
         this.bufferDataSource = this.users.content.map(x => Object.assign({}, x));
         this.dataSource = new MatTableDataSource(this.bufferDataSource);
         setTimeout(() => this.dataSource.paginator = this.paginator);
