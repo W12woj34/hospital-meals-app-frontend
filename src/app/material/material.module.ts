@@ -20,6 +20,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSortModule} from '@angular/material/sort';
+import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
@@ -46,7 +48,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     ScrollingModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-
+    MatCheckboxModule,
+    MatSelectModule,
+    MatSortModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -69,7 +73,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatPaginatorModule,
     ScrollingModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatSortModule
   ]
 })
 

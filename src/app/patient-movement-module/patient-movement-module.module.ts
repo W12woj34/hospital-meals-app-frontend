@@ -8,8 +8,6 @@ import {PatientMovementWorkersComponent} from './patient-movement-workers/patien
 import {PatientMovementWorkerDetailsComponent} from './patient-movement-worker-details/patient-movement-worker-details.component';
 import {PatientMovementAddWorkerComponent} from './patient-movement-add-worker/patient-movement-add-worker.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSortModule} from '@angular/material/sort';
 import { PatientMovementWorkerPasswordChangeComponent } from './patient-movement-worker-password-change/patient-movement-worker-password-change.component';
 
 
@@ -25,8 +23,6 @@ import { PatientMovementWorkerPasswordChangeComponent } from './patient-movement
     MaterialModule,
     ToolsModule,
     FormsModule,
-    MatSelectModule,
-    MatSortModule,
     ReactiveFormsModule
   ],
   providers: [
