@@ -23,7 +23,7 @@ import {Person} from '../../dataBaseObjects/person';
 
 export class NursePatientRegistrationComponent implements OnInit {
 
-  person: Person = {id: null, firstName: '', lastName: '', birthDate: '', pesel: null };
+  person: Person = {id: null, firstName: '', lastName: '', birthDate: '', pesel: null};
   patient: Patient = {id: null, additionalInfo: '', person: this.person};
   birthDate: Date = new Date();
   color: ThemePalette = 'primary';
@@ -69,24 +69,49 @@ export class NursePatientRegistrationComponent implements OnInit {
                 duration: 4000,
               });
               return;
-            } else {
-              this.patient = {
-                id: people.content[0].id,
-                additionalInfo: '',
-                person: this.person
-              };
-              this.patientService.post(this.patient, '').subscribe(() => {
-                this.createStay(people.content[0].id);
-              });
             }
+            const httpParamsStay = new HttpParams().set('archived', 'false').set('patientId', String(people.content[0].id));
+            this.stayService.getPageSpec('', httpParamsStay).subscribe(stays => {
+              if (stays.content.length !== 0) {
+                this.snackBar.open('Pacjent przebywa już w szpitalu!', 'OK', {
+                  duration: 4000,
+                });
+                return;
+              }
+              this.patientService.isExist(String(people.content[0].id)).subscribe(patients => {
+                if (patients === false) {
+                  this.patient = {
+                    id: people.content[0].id,
+                    additionalInfo: '',
+                    person: people.content[0]
+                  };
+                  this.patientService.post(this.patient, '').subscribe(() => {
+                    this.createStay(people.content[0].id);
+                  });
+                } else {
+                  this.createStay(people.content[0].id);
+                }
+              });
+            });
           });
         } else {
-          this.person.birthDate = this.datePipe.transform(this.birthDate, 'yyyy-MM-dd');
-          this.personService.post(this.person, '').subscribe( person => {
-            this.person.id = person.id;
-            this.patientService.post(this.patient, '').subscribe(patient => {
-              this.createStay(patient.id);
-            });
+          const httpParams = new HttpParams().set('pesel', this.person.pesel);
+          this.personService.getPageSpec('', httpParams).subscribe(people => {
+            if (people.content.length !== 0) {
+              this.snackBar.open('Pacjent znajduje się już w bazie danych!', 'OK', {
+                duration: 4000,
+              });
+              return;
+            } else {
+              this.person.birthDate = this.datePipe.transform(this.birthDate, 'yyyy-MM-dd');
+              this.personService.post(this.person, '').subscribe(person => {
+                this.person.id = person.id;
+                this.patient.id = person.id;
+                this.patientService.post(this.patient, '').subscribe(patient => {
+                  this.createStay(patient.id);
+                });
+              });
+            }
           });
         }
       }

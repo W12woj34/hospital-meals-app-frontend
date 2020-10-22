@@ -15,6 +15,7 @@ import {HttpParams} from '@angular/common/http';
 import {MealService} from '../../service/base/meal.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ChangePersonDataComponent} from '../../tools-module/change-person-data/change-person-data.component';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class NursePatientDetailsComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<NursePatientDetailsComponent>,
               public dialog: MatDialog,
+              private datePipe: DatePipe,
               private patientService: PatientService,
               private patientDietService: PatientDietService,
               private stayService: StayService,
@@ -109,6 +111,7 @@ export class NursePatientDetailsComponent implements OnInit {
 
             const dto = stay.content[0];
             dto.archived = true;
+            dto.releaseDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
 
             this.stayService.put(dto, String(dto.id)).subscribe(() => {
 
