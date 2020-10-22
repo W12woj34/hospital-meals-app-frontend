@@ -13,7 +13,7 @@ export class NurseGuard implements CanActivate {
     if (this.authService.isLoggedIn() === true && this.authService.getLoggedUser() === 'ROLE_NURSE') {
       return true;
     }
-    this.router.navigate(['/login']);
+    this.authService.logout();
     return false;
   }
 

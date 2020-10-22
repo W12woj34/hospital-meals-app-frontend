@@ -13,7 +13,7 @@ export class AuthService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private loggedUser: string;
-  private apiURL = 'http://localhost:8080';
+  private apiURL = 'https://localhost:443';
 
   constructor(private http: HttpClient,
               private router: Router) {

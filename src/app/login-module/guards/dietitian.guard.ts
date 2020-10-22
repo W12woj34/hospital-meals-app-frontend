@@ -13,7 +13,7 @@ export class DietitianGuard implements CanActivate {
     if (this.authService.isLoggedIn() === true && this.authService.getLoggedUser() === 'ROLE_DIETITIAN') {
       return true;
     }
-    this.router.navigate(['/login']);
+    this.authService.logout();
     return false;
   }
 }

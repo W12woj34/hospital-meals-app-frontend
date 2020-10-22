@@ -9,7 +9,7 @@ export abstract class BaseService<T extends Resource<ID>, ID> {
 
   protected static readonly DEFAULT_PAGE = 0;
   protected static readonly DEFAULT_PAGE_SIZE = 100;
-  protected apiURL = 'http://localhost:8080';
+  protected apiURL = 'https://localhost:443';
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
