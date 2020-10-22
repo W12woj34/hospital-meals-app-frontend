@@ -8,16 +8,20 @@ import {NurseMainComponent} from './ward-nurse-module/nurse-main/nurse-main.comp
 import {NurseMealsOrdersComponent} from './ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component';
 import {PatientMovementLogsComponent} from './patient-movement-module/patient-movement-logs/patient-movement-logs.component';
 import {PatientMovementWorkersComponent} from './patient-movement-module/patient-movement-workers/patient-movement-workers.component';
+import {KitchenGuard} from './login-module/guards/kitchen.guard';
+import {MovementGuard} from './login-module/guards/movement.guard';
+import {NurseGuard} from './login-module/guards/nurse.guard';
+import {DietitianGuard} from './login-module/guards/dietitian.guard';
 
 const routes: Routes = [
   {path: 'login', component: LoginSiteComponent},
-  {path: 'kitchenDietitian', component: KitchenMainComponent},
-  {path: 'wardDietitian', component: DietitianMainComponent},
-  {path: 'wardNurse', component: NurseMainComponent},
-  {path: 'wardNurseOrders', component: NurseMealsOrdersComponent},
-  {path: 'patientMovement', component: MovementMainComponent},
-  {path: 'patientMovementLogs', component: PatientMovementLogsComponent},
-  {path: 'patientMovementWorkers', component: PatientMovementWorkersComponent},
+  {path: 'kitchenDietitian', component: KitchenMainComponent, canActivate: [KitchenGuard]},
+  {path: 'wardDietitian', component: DietitianMainComponent, canActivate: [DietitianGuard]},
+  {path: 'wardNurse', component: NurseMainComponent, canActivate: [NurseGuard]},
+  {path: 'wardNurseOrders', component: NurseMealsOrdersComponent, canActivate: [NurseGuard]},
+  {path: 'patientMovement', component: MovementMainComponent, canActivate: [MovementGuard]},
+  {path: 'patientMovementLogs', component: PatientMovementLogsComponent, canActivate: [MovementGuard]},
+  {path: 'patientMovementWorkers', component: PatientMovementWorkersComponent, canActivate: [MovementGuard]},
   {path: '**', redirectTo: 'login'},
 ];
 

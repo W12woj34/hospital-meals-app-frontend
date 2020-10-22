@@ -52,8 +52,6 @@ export class AuthService {
         tap((tokens: Tokens) => {
         this.storeJwtToken(tokens.jwt);
       })
-      //  ,
-       // catchError(this.handleRefreshError())
       );
   }
 
@@ -97,9 +95,4 @@ export class AuthService {
     localStorage.removeItem(this.REFRESH_TOKEN);
   }
 
-  private handleRefreshError(): null {
-    this.logout();
-    return null;
-
-  }
 }

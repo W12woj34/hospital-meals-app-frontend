@@ -5,14 +5,15 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class DietitianGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(): boolean {
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/secret-random-number']);
+    if (this.authService.isLoggedIn() === true && this.authService.getLoggedUser() === 'ROLE_DIETITIAN') {
+      return true;
     }
-    return !this.authService.isLoggedIn();
+    this.router.navigate(['/login']);
+    return false;
   }
 }

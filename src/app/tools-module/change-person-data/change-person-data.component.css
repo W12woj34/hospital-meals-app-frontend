@@ -8,3 +8,12 @@
 .rightBtn{
   float: right;
 }
+
+.example-full-width {
+  width: 100%;
+}
+
+mat-dialog-content {
+  margin: auto;
+  justify-content: center;
+}
