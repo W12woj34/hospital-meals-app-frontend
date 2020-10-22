@@ -1,0 +1,10 @@
+.btn-primary .btn.disabled, .btn-primary .btn:disabled, .btn.btn-primary.disabled, .btn.btn-primary:disabled {
+  color: #565656;
+  cursor: not-allowed;
+  background-color: #ccc;
+  border-color: #ccc;
+  opacity: .4;
+}
+.rightBtn{
+  float: right;
+}

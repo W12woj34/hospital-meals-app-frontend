@@ -14,6 +14,7 @@ import {PatientDiet} from '../../dataBaseObjects/patient-diet';
 import {HttpParams} from '@angular/common/http';
 import {MealService} from '../../service/base/meal.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ChangePersonDataComponent} from '../../tools-module/change-person-data/change-person-data.component';
 
 
 @Component({
@@ -123,4 +124,18 @@ export class NursePatientDetailsComponent implements OnInit {
 
   }
 
+  onEdit(): void {
+    const dialogRef = this.dialog.open(ChangePersonDataComponent, {
+      minWidth: 'fit-content',
+      data: {id: this.data.id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === false) {
+        return;
+      }
+      console.log('The dialog was closed');
+      this.dialogRef.close(true);
+    });
+  }
 }

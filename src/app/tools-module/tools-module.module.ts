@@ -6,10 +6,11 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ChangePersonDataComponent } from './change-person-data/change-person-data.component';
 
 
 @NgModule({
-  declarations: [TopBarComponent, ConfirmDialogComponent, SpinnerComponent, PasswordChangeComponent],
+  declarations: [TopBarComponent, ConfirmDialogComponent, SpinnerComponent, PasswordChangeComponent, ChangePersonDataComponent],
     imports: [
         CommonModule,
         MaterialModule,

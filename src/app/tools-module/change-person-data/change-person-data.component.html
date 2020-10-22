@@ -1,0 +1,51 @@
+<mat-dialog-content>
+  <h2>Zmiana danych osobowych</h2>
+  <br>
+  <form class="data">
+    <div class="patientData">
+      <mat-form-field>
+        <label>
+          <input matInput
+                 required
+                 [(ngModel)]="person.firstName"
+                 name="firstName"
+                 type="text"
+                 placeholder="Imię">
+        </label>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <label>
+          <input matInput
+                 required
+                 [(ngModel)]="person.lastName"
+                 name="lastName"
+                 type="text"
+                 placeholder="Nazwisko">
+        </label>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Data Urodzenia</mat-label>
+        <label>
+          <input matInput
+                 required
+                 [(ngModel)]="birthDate"
+                 name="birthDate"
+                 type="text"
+                 [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </label>
+      </mat-form-field>
+      <br>
+      <br>
+      <button mat-button (click)="onDismiss()">Nie</button>
+      <button mat-raised-button class="rightBtn" color="primary" (click)="onConfirm()">Tak</button>
+    </div>
+    <br>
+  </form>
+</mat-dialog-content>
+

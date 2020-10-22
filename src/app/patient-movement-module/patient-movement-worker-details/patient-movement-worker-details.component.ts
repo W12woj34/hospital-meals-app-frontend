@@ -10,6 +10,7 @@ import {MainKitchenDietitianService} from '../../service/base/main-kitchen-dieti
 import {DietitianService} from '../../service/base/dietitian.service';
 import {PatientMovementService} from '../../service/base/patient-movement.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ChangePersonDataComponent} from '../../tools-module/change-person-data/change-person-data.component';
 
 @Component({
   selector: 'app-patient-movement-worker-details',
@@ -95,6 +96,21 @@ export class PatientMovementWorkerDetailsComponent implements OnInit {
       duration: 4000,
     });
     this.dialogRef.close(true);
+  }
+
+  onEdit(): void {
+    const dialogRef = this.dialog.open(ChangePersonDataComponent, {
+      minWidth: 'fit-content',
+      data: {id: this.data.id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === false) {
+        return;
+      }
+      console.log('The dialog was closed');
+      this.dialogRef.close(true);
+    });
   }
 }
 

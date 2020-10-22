@@ -22,7 +22,7 @@ import {Page} from '../../dataBaseObjects/page';
 })
 export class NurseMainComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'pesel', 'firstName', 'lastName', 'admissionDate', 'diet'];
+  displayedColumns: string[] = ['id', 'pesel', 'firstName', 'lastName', 'birthDate', 'admissionDate', 'diet'];
   bufferDataSource;
   dataSource: MatTableDataSource<PatientData>;
   users: Page<PatientData>;

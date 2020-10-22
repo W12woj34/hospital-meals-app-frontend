@@ -28,6 +28,10 @@ h2{
   font-size: 64px;
 }
 
+.editIcon{
+  font-size: 36px;
+}
+
 .dischargeBtn{
   float: right;
   margin-right: 40px;
@@ -79,6 +83,10 @@ mat-dialog-content {
 
 .backColor{
   color: #1A237E;
+}
+
+.editColor{
+  color: #FFB300;
 }
 
 .dischargeText {
