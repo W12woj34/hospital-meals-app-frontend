@@ -23,6 +23,7 @@ import {PersonService} from '../../service/base/person.service';
 import {DatePipe} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DietitianAddRestrictionComponent} from '../dietitian-add-restriction/dietitian-add-restriction.component';
+import {MealService} from '../../service/base/meal.service';
 
 
 @Component({
@@ -57,6 +58,7 @@ export class DietitianPatientDetailsComponent implements OnInit {
               private patientService: PatientService,
               private personService: PersonService,
               private dietService: DietService,
+              private mealService: MealService,
               private dietaryRestrictionService: DietaryRestrictionService,
               private restrictionStatusService: RestrictionStatusService,
               private patientDietService: PatientDietService,
@@ -156,7 +158,10 @@ export class DietitianPatientDetailsComponent implements OnInit {
           diet: this.currentDiet.get('currentDiet').value
         };
         this.patientDietService.post(patientDietDto, '').subscribe();
+        this.mealService.setPatientMealsDiet(this.currentDiet.get('currentDiet').value, 'meal-order/' + String(this.data.id))
+          .subscribe();
       }
+
 
       this.restrictions.content.forEach(r => {
         this.dietaryRestrictionService.put(r, String(r.id)).subscribe();

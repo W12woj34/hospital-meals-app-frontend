@@ -6,7 +6,7 @@
 margin-bottom: 3%;
 }
 .background {
-  background-image: url("background.jpg");
+  background-image: url("src/assets/background.jpg");
   background-size: auto;
   background-repeat: repeat;
   opacity: 0.8;

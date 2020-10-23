@@ -7,6 +7,7 @@ import {PatientMealOrder} from '../../dataBaseObjects/patient-meal-order';
 import {BaseSpecificationService} from './base-specification-service';
 import {BaseService} from './base.service';
 import {Page} from '../../dataBaseObjects/page';
+import {Diet} from '../../dataBaseObjects/diet';
 
 @Injectable({
   providedIn: 'root'
@@ -60,11 +61,20 @@ export class MealService extends BaseSpecificationService<Meal, number> {
   setPatientMeals(dto: PatientMealOrder[], path: string): Observable<void> {
 
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
-    console.log(url);
-    console.log(dto);
     return this.http.post<void>(url, dto, this.httpOptions).pipe(
       tap(_ => console.log(`post Dtos to ${url}`)),
       catchError(this.handleError<void>('addDto'))
+    );
+  }
+
+  setPatientMealsDiet(dto: Diet, path: string): Observable<void> {
+
+    const url = `${this.apiURL}/${this.endpoint}/${path}`;
+    console.log(url);
+    console.log(dto);
+    return this.http.put<void>(url, dto, this.httpOptions).pipe(
+      tap(_ => console.log(`update patient diet to ${url}`)),
+      catchError(this.handleError<void>('putDto'))
     );
   }
 }
