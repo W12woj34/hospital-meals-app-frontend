@@ -62,7 +62,7 @@ export class MealService extends BaseSpecificationService<Meal, number> {
 
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
     return this.http.post<void>(url, dto, this.httpOptions).pipe(
-      tap(_ => console.log(`post Dtos to ${url}`)),
+      tap(() => console.log(`post Dtos to ${url}`)),
       catchError(this.handleError<void>('addDto'))
     );
   }
@@ -73,7 +73,7 @@ export class MealService extends BaseSpecificationService<Meal, number> {
     console.log(url);
     console.log(dto);
     return this.http.put<void>(url, dto, this.httpOptions).pipe(
-      tap(_ => console.log(`update patient diet to ${url}`)),
+      tap(() => console.log(`update patient diet to ${url}`)),
       catchError(this.handleError<void>('putDto'))
     );
   }

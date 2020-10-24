@@ -12,7 +12,7 @@ export class AuthService {
 
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
-  private loggedUser: string;
+  private readonly LOGGED_USER: 'LOGGED_USER';
   private apiURL = 'https://localhost:443';
 
   constructor(private http: HttpClient,
@@ -60,7 +60,7 @@ export class AuthService {
   }
 
   getLoggedUser(): string {
-    return this.loggedUser;
+    return localStorage.getItem(this.LOGGED_USER);
   }
 
   getApiUrl(): string {
@@ -68,12 +68,12 @@ export class AuthService {
   }
 
   private doLoginUser(role: string, jwt: string, refreshToken: string): void {
-    this.loggedUser = role;
+    localStorage.setItem(this.LOGGED_USER, role);
     this.storeTokens(new Tokens(jwt, refreshToken));
   }
 
   private doLogoutUser(): void {
-    this.loggedUser = null;
+    localStorage.removeItem(this.LOGGED_USER);
     this.removeTokens();
   }
 

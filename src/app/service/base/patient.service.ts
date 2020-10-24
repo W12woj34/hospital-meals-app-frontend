@@ -41,7 +41,7 @@ export class PatientService extends BaseSpecificationService<Patient, number> {
   getPatientData(path: string): Observable<PatientData> {
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
     return this.http.get<PatientData>(url).pipe(
-      tap(_ => console.log(`fetched get from ${url}`)),
+      tap(() => console.log(`fetched get from ${url}`)),
       catchError(this.handleError<PatientData>(`get from ${path}`))
     );
   }

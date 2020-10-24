@@ -156,7 +156,7 @@ export class PatientMovementAddWorkerComponent implements OnInit {
 
   registerWorker(): void {
 
-    this.loginService.post(this.login, '').subscribe(login => {
+    this.loginService.signUp(this.login).subscribe(login => {
       console.log('utworzono dane logowania');
       this.worker = {
         id: this.person.id,

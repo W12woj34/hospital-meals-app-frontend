@@ -39,7 +39,7 @@ export class EmployeeService extends BaseService<Employee, number> {
   getEmployeeData(path: string): Observable<EmployeeData> {
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
     return this.http.get<EmployeeData>(url).pipe(
-      tap(_ => console.log(`fetched get from ${url}`)),
+      tap(() => console.log(`fetched get from ${url}`)),
       catchError(this.handleError<EmployeeData>(`get from ${path}`))
     );
   }

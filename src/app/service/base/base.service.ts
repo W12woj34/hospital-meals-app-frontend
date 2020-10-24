@@ -44,7 +44,7 @@ export abstract class BaseService<T extends Resource<ID>, ID> {
     const url = `${this.apiURL}/${this.endpoint}/exists/${path}`;
     return this.http.get<boolean>(url)
       .pipe(
-        tap(_ => console.log(`fetched get from ${url}`)),
+        tap(() => console.log(`fetched get from ${url}`)),
         catchError(this.handleError<boolean>(`get from ${path}`))
       );
   }
@@ -53,7 +53,7 @@ export abstract class BaseService<T extends Resource<ID>, ID> {
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
     return this.http.get<T>(url)
       .pipe(
-        tap(_ => console.log(`fetched get from ${url}`)),
+        tap(() => console.log(`fetched get from ${url}`)),
         catchError(this.handleError<T>(`get from ${path}`))
       );
   }
@@ -61,7 +61,7 @@ export abstract class BaseService<T extends Resource<ID>, ID> {
   put(dto: T, path: string): Observable<T> {
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
     return this.http.put(url, dto, this.httpOptions).pipe(
-      tap(_ => console.log(`put Dto to ${url}`)),
+      tap(() => console.log(`put Dto to ${url}`)),
       catchError(this.handleError<any>('updateDto'))
     );
   }
@@ -78,7 +78,7 @@ export abstract class BaseService<T extends Resource<ID>, ID> {
     const url = `${this.apiURL}/${this.endpoint}/${path}`;
 
     return this.http.delete<any>(url, {headers: this.httpOptions.headers, observe: 'response'}).pipe(
-      tap(_ => console.log(`deleted Dto from ${url}`))
+      tap(() => console.log(`deleted Dto from ${url}`))
     );
   }
 
