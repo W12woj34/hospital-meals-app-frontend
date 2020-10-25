@@ -36,6 +36,7 @@ export class KitchenMainComponent implements OnInit {
 
   displaySummaryReport(): void {
 
+    this.getDemands();
     this.reportService.getSummaryReport().subscribe(report => {
       const blob = new Blob([report], {type: 'application/pdf'});
       const urlPDF = window.URL.createObjectURL(blob);
@@ -46,6 +47,7 @@ export class KitchenMainComponent implements OnInit {
 
   displayDemandsReport(): void {
 
+    this.getDemands();
     this.reportService.getDemandsReport().subscribe(report => {
       const blob = new Blob([report], {type: 'application/pdf'});
       const urlPDF = window.URL.createObjectURL(blob);
