@@ -19,7 +19,6 @@
   width: 70%;
 }
 
-
 .layout {
   background: #fafafa;
   position: relative;
@@ -45,7 +44,16 @@
 
 }
 
-.material-icons {
+.renewText{
+  margin-bottom: 5%;
+}
+
+.mealsText{
+  margin-top: 5%;
+}
+
+
+.renewButton {
   font-size: 56px;
 
 }
@@ -59,7 +67,7 @@ h1{
 }
 
 h3{
-  font-size: 14px;
+  font-size: 18px;
   color: red;
 }
 

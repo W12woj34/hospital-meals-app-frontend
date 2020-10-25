@@ -39,8 +39,6 @@ export class TopBarComponent implements OnInit {
       console.log('The dialog was closed');
     });
 
-    // tu trzeba będzie zapisać wszystko
-
   }
 
   logout(): void {

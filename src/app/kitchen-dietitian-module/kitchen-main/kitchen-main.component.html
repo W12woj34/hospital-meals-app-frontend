@@ -4,23 +4,33 @@
 <app-top-bar class="topBar"></app-top-bar>
 
 
-
-
 <div class="frame">
   <div class="layout">
     <br>
     <h1>Zestawienia z oddziałów:</h1>
     <br>
-    <button mat-raised-button class="sheetBtn" color="primary">Zestawienie nr. 1, Coś <br/>o posiłkach z oddziałów, ale nie <br/>pamietam dokładnie</button>
-    <p>Opis zestawienia 1 w formie PDF</p>
-    <button mat-raised-button class="sheetBtn" color="primary">Zestawienie nr. 2, takie bardziej <br/>dla kuchni, ale musze to zdjecie <br/>znalezć xd</button>
-    <p>Opis zestawienia 2 w formie PDF</p>
-    <button mat-raised-button class="sheetBtn" color="warn">
-    <span class="material-icons">
-autorenew
-</span>
-      Odśwież zestawienia
+    <button mat-raised-button class="sheetBtn" color="primary" (click)="displaySummaryReport()">
+      Zestawienie podsumowujące<br/> na potrzeby zaopatrzenia<br/>magazynu
     </button>
+    <p>Zestawienie liczby pacjentów na poszczególnych oddziałach <br/> wformie PDF</p>
+    <button mat-raised-button class="sheetBtn" color="primary" (click)="displayDemandsReport()">
+      Zestawienie zbiorcze<br/>zamówień posiłków z oddziałów
+    </button>
+    <p>Zestawienie liczby posiłków z oddziałów wraz z rodzajem posiłku <br/>i dietą w formie PDF</p>
+    <button mat-icon-button class="sheetBtn" title="Odśwież" (click)="getDemands()" color="warn">
+      <mat-icon class="renewButton">autorenew</mat-icon>
+      <div class="renewText">Odśwież zestawienia</div>
+    </button>
+    <br>
+    <br>
+    <div class="mealsText">
+    <div  *ngIf="demands">
+      <h3>Zamówione Śniadania: {{demands.breakfasts}}</h3>
+      <h3>Zamówione Obiady: {{demands.lunches}}</h3>
+      <h3>Zamówione Kolacje: {{demands.suppers}}</h3>
+    </div>
+
     <h3>Ostatnia aktualizacja zestawień: {{timestamp}}</h3>
+    </div>
   </div>
 </div>

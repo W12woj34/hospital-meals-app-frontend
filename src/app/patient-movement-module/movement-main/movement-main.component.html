@@ -4,7 +4,6 @@
 <app-top-bar class="topBar"></app-top-bar>
 
 
-
 <div class="frame">
 
   <div class="layout">
@@ -15,21 +14,20 @@
     <button mat-raised-button class="btn" color="primary" (click)="openLogs()">Logi</button>
     <p>Przejdź do listy akcji wykonywanych przez pracowników</p>
     <p>
-    <button mat-raised-button class="btn"color="primary" [disabled]="!sheetDate">Zestawienie porównawcze<br/> z oddziałów</button>
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Wybierz date zestawienia</mat-label>
-      <input matInput [matDatepicker]="picker"
-             [(ngModel)]="sheetDate">
-      <mat-datepicker-toggle matSuffix [for]="picker">
-        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-      </mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+      <button mat-raised-button class="btn" color="primary" (click)="displayControlReport()"
+              [disabled]="!sheetDate">Zestawienie porównawcze<br/> z oddziałów
+      </button>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Wybierz date zestawienia</mat-label>
+        <input matInput [matDatepicker]="picker"
+               [(ngModel)]="sheetDate">
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
     </p>
-
-
-
-
     <p>Pobierz zestawienie w formie pliku PDF</p>
 
-
+  </div>
+</div>
