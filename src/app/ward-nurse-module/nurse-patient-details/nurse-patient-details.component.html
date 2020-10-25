@@ -1,7 +1,7 @@
 <mat-dialog-content>
   <section>
     <div class="inLineTop">
-  <span>
+  <span *ngIf="patient">
       <br>
       <br>
       <h3>
@@ -16,8 +16,8 @@
     <br>
   </span>
       <span><h1>Pacjent</h1></span>
-      <span class="rightSide">
-            <br>
+      <span class="rightSide" *ngIf="patient">
+        <br>
       <br>
       <h3>Informacje dodatkowe</h3>
         {{patient.additionalInfo}}

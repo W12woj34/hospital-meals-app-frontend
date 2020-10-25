@@ -2,7 +2,7 @@
   <section>
     <span><h1>Pracownik</h1></span>
     <br>
-    <h3>
+    <h3 *ngIf="worker">
       Imię: {{worker.firstName}}<br/>
       Nazwisko: {{worker.lastName}}<br/>
       Pesel: {{worker.pesel}}<br/>
