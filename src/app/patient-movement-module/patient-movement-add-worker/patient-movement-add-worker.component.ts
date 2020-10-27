@@ -94,8 +94,8 @@ export class PatientMovementAddWorkerComponent implements OnInit {
 
 
             const httpParams = new HttpParams().set('pesel', this.person.pesel);
-            this.personService.getPageSpec('', httpParams).subscribe(workers => {
-              if (workers.content.length === 0) {
+            this.personService.getPageSpec('', httpParams).subscribe(people => {
+              if (people.content.length === 0) {
                 console.log('Nie ma go w bazie');
                 this.snackBar.open('Brak pracownika w bazie danych', 'OK', {
                   duration: 4000,
@@ -103,7 +103,7 @@ export class PatientMovementAddWorkerComponent implements OnInit {
                 return;
               } else {
                 console.log('Jest w bazie');
-                this.employeeService.isExist(String(workers.content[0].id))
+                this.employeeService.isExist(String(people.content[0].id))
                   .subscribe(isExists => {
                     if (isExists === true) {
                       console.log('Jest zatrudniony');
@@ -112,9 +112,9 @@ export class PatientMovementAddWorkerComponent implements OnInit {
                       });
                       return;
                     }
-                    this.person.id = workers.content[0].id;
+                    this.person.id = people.content[0].id;
                     console.log('Nie jest zatrudniony');
-                    this.registerWorker();
+                    this.registerWorker(people.content[0]);
                   });
               }
             });
@@ -149,19 +149,19 @@ export class PatientMovementAddWorkerComponent implements OnInit {
       console.log(this.person.id);
       this.person.id = person.id;
       console.log(this.person.id);
-      this.registerWorker();
+      this.registerWorker(person);
     });
   }
 
 
-  registerWorker(): void {
+  registerWorker(person: Person): void {
 
     this.loginService.signUp(this.login).subscribe(login => {
       console.log('utworzono dane logowania');
       this.worker = {
         id: this.person.id,
         loginId: login.id,
-        person: this.person
+        person
       };
       console.log(this.person.id);
       console.log(this.worker.id);
