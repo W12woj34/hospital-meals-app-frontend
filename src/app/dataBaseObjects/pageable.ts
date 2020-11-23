@@ -1,7 +1,7 @@
 import {Sort} from './sort';
 
 export class Pageable {
-  static readonly DEFAULT_PAGE_SIZE = 20;
+  static readonly DEFAULT_PAGE_SIZE = 100;
   static readonly FIRST_PAGE_NUMBER = 0;
   sort: Sort;
   pageSize: number;
