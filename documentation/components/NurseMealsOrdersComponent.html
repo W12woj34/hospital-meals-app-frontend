@@ -1,0 +1,1674 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>hospital-meals-app-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">hospital-meals-app-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>NurseMealsOrdersComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-nurse-meals-orders</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./nurse-meals-orders.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./nurse-meals-orders.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#breakfast">breakfast</a>
+                            </li>
+                            <li>
+                                <a href="#dataSource">dataSource</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog">dialog</a>
+                            </li>
+                            <li>
+                                <a href="#dialogResult">dialogResult</a>
+                            </li>
+                            <li>
+                                <a href="#displayedColumns">displayedColumns</a>
+                            </li>
+                            <li>
+                                <a href="#filterValue">filterValue</a>
+                            </li>
+                            <li>
+                                <a href="#lunch">lunch</a>
+                            </li>
+                            <li>
+                                <a href="#paginator">paginator</a>
+                            </li>
+                            <li>
+                                <a href="#patients">patients</a>
+                            </li>
+                            <li>
+                                <a href="#sort">sort</a>
+                            </li>
+                            <li>
+                                <a href="#supper">supper</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#applyFilter">applyFilter</a>
+                            </li>
+                            <li>
+                                <a href="#changeValue">changeValue</a>
+                            </li>
+                            <li>
+                                <a href="#goBack">goBack</a>
+                            </li>
+                            <li>
+                                <a href="#isAllEmpty">isAllEmpty</a>
+                            </li>
+                            <li>
+                                <a href="#isAllSelected">isAllSelected</a>
+                            </li>
+                            <li>
+                                <a href="#isNotAllSelected">isNotAllSelected</a>
+                            </li>
+                            <li>
+                                <a href="#makeOrder">makeOrder</a>
+                            </li>
+                            <li>
+                                <a href="#masterToggle">masterToggle</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dialog: MatDialog, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, location: <a href="https://angular.io/api/common/Location" target="_blank">Location</a>, mealService: <a href="../injectables/MealService.html">MealService</a>, snackBar: MatSnackBar)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>location</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/Location" target="_blank" >Location</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>mealService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MealService.html" target="_self" >MealService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackBar</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatSnackBar</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applyFilter"></a>
+                    <span class="name">
+                        <b>
+                            applyFilter
+                        </b>
+                        <a href="#applyFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>applyFilter(event: <a href="../interfaces/Event.html">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="131"
+                            class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:131</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../interfaces/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeValue"></a>
+                    <span class="name">
+                        <b>
+                            changeValue
+                        </b>
+                        <a href="#changeValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeValue(row: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="116"
+                            class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:116</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>row</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goBack"></a>
+                    <span class="name">
+                        <b>
+                            goBack
+                        </b>
+                        <a href="#goBack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goBack()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAllEmpty"></a>
+                    <span class="name">
+                        <b>
+                            isAllEmpty
+                        </b>
+                        <a href="#isAllEmpty"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isAllEmpty(which)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="79"
+                            class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:79</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>which</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAllSelected"></a>
+                    <span class="name">
+                        <b>
+                            isAllSelected
+                        </b>
+                        <a href="#isAllSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isAllSelected(which)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="66"
+                            class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:66</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>which</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isNotAllSelected"></a>
+                    <span class="name">
+                        <b>
+                            isNotAllSelected
+                        </b>
+                        <a href="#isNotAllSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isNotAllSelected(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:127</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="makeOrder"></a>
+                    <span class="name">
+                        <b>
+                            makeOrder
+                        </b>
+                        <a href="#makeOrder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>makeOrder()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="137"
+                            class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:137</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="masterToggle"></a>
+                    <span class="name">
+                        <b>
+                            masterToggle
+                        </b>
+                        <a href="#masterToggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>masterToggle(which)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="92"
+                            class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:92</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Selects all rows if they are not all selected; otherwise clear selection. </p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>which</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:50</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="breakfast"></a>
+                        <span class="name">
+                            <b>
+                            breakfast</b>
+                            <a href="#breakfast"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new SelectionModel&lt;Zamowienia&gt;(true, [])</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:35</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dataSource"></a>
+                        <span class="name">
+                            <b>
+                            dataSource</b>
+                            <a href="#dataSource"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>MatTableDataSource&lt;PatientMealOrder&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:34</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialog"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            dialog</b>
+                            <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>MatDialog</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialogResult"></a>
+                        <span class="name">
+                            <b>
+                            dialogResult</b>
+                            <a href="#dialogResult"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:39</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="displayedColumns"></a>
+                        <span class="name">
+                            <b>
+                            displayedColumns</b>
+                            <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>string[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[&#x27;pesel&#x27;, &#x27;firstName&#x27;, &#x27;lastName&#x27;, &#x27;birthDate&#x27;, &#x27;breakfast&#x27;, &#x27;lunch&#x27;, &#x27;supper&#x27;]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filterValue"></a>
+                        <span class="name">
+                            <b>
+                            filterValue</b>
+                            <a href="#filterValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="lunch"></a>
+                        <span class="name">
+                            <b>
+                            lunch</b>
+                            <a href="#lunch"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new SelectionModel&lt;Zamowienia&gt;(true, [])</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="paginator"></a>
+                        <span class="name">
+                            <b>
+                            paginator</b>
+                            <a href="#paginator"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>MatPaginator</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(MatPaginator)<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:40</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="patients"></a>
+                        <span class="name">
+                            <b>
+                            patients</b>
+                            <a href="#patients"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Page.html" target="_self" >Page&lt;PatientMealOrder&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sort"></a>
+                        <span class="name">
+                            <b>
+                            sort</b>
+                            <a href="#sort"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Sort.html" target="_self" >MatSort</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(MatSort)<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="supper"></a>
+                        <span class="name">
+                            <b>
+                            supper</b>
+                            <a href="#supper"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new SelectionModel&lt;Zamowienia&gt;(true, [])</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/ward-nurse-module/nurse-meals-orders/nurse-meals-orders.component.ts:37</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, OnInit, ViewChild} from &#x27;@angular/core&#x27;;
+import {Router} from &#x27;@angular/router&#x27;;
+import {Location} from &#x27;@angular/common&#x27;;
+import {MatDialog} from &#x27;@angular/material/dialog&#x27;;
+import {MatTableDataSource} from &#x27;@angular/material/table&#x27;;
+import {SelectionModel} from &#x27;@angular/cdk/collections&#x27;;
+import {ConfirmDialogComponent} from &#x27;../../tools-module/confirm-dialog/confirm-dialog.component&#x27;;
+import {MatSort} from &#x27;@angular/material/sort&#x27;;
+import {MatPaginator} from &#x27;@angular/material/paginator&#x27;;
+import {MealService} from &#x27;../../service/base/meal.service&#x27;;
+import {PatientMealOrder} from &#x27;../../dataBaseObjects/patient-meal-order&#x27;;
+import {Page} from &#x27;../../dataBaseObjects/page&#x27;;
+import {MatSnackBar} from &#x27;@angular/material/snack-bar&#x27;;
+
+export interface Zamowienia {
+  idPatient: number;
+  pesel: string;
+  firstName: string;
+  lastName: string;
+  breakfast: boolean;
+  lunch: boolean;
+  supper: boolean;
+}
+
+@Component({
+  selector: &#x27;app-nurse-meals-orders&#x27;,
+  templateUrl: &#x27;./nurse-meals-orders.component.html&#x27;,
+  styleUrls: [&#x27;./nurse-meals-orders.component.css&#x27;]
+})
+export class NurseMealsOrdersComponent implements OnInit {
+
+  patients: Page&lt;PatientMealOrder&gt;;
+  displayedColumns: string[] &#x3D; [&#x27;pesel&#x27;, &#x27;firstName&#x27;, &#x27;lastName&#x27;, &#x27;birthDate&#x27;, &#x27;breakfast&#x27;, &#x27;lunch&#x27;, &#x27;supper&#x27;];
+  dataSource: MatTableDataSource&lt;PatientMealOrder&gt;;
+  breakfast &#x3D; new SelectionModel&lt;Zamowienia&gt;(true, []);
+  lunch &#x3D; new SelectionModel&lt;Zamowienia&gt;(true, []);
+  supper &#x3D; new SelectionModel&lt;Zamowienia&gt;(true, []);
+  filterValue &#x3D; &#x27;&#x27;;
+  dialogResult: boolean;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(public dialog: MatDialog,
+              private router: Router,
+              private location: Location,
+              private mealService: MealService,
+              private snackBar: MatSnackBar) {
+  }
+
+  ngOnInit(): void {
+
+    this.mealService.getMealOrders()
+      .subscribe(patients &#x3D;&gt; {
+        this.patients &#x3D; patients;
+        this.dataSource &#x3D; new MatTableDataSource(this.patients.content);
+        setTimeout(() &#x3D;&gt; this.dataSource.paginator &#x3D; this.paginator);
+        setTimeout(() &#x3D;&gt; this.dataSource.sort &#x3D; this.sort);
+      });
+
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  isAllSelected(which): boolean {
+    if (this.dataSource) {
+      if (which &#x3D;&#x3D;&#x3D; &#x27;breakfast&#x27;) {
+        return this.dataSource.data.filter(row &#x3D;&gt; row.breakfast &#x3D;&#x3D;&#x3D; true).length &#x3D;&#x3D;&#x3D; this.dataSource.data.length;
+      } else if (which &#x3D;&#x3D;&#x3D; &#x27;lunch&#x27;) {
+        return this.dataSource.data.filter(row &#x3D;&gt; row.lunch &#x3D;&#x3D;&#x3D; true).length &#x3D;&#x3D;&#x3D; this.dataSource.data.length;
+      } else if (which &#x3D;&#x3D;&#x3D; &#x27;supper&#x27;) {
+        return this.dataSource.data.filter(row &#x3D;&gt; row.supper &#x3D;&#x3D;&#x3D; true).length &#x3D;&#x3D;&#x3D; this.dataSource.data.length;
+      }
+    }
+
+  }
+
+  isAllEmpty(which): boolean {
+    if (this.dataSource) {
+      if (which &#x3D;&#x3D;&#x3D; &#x27;breakfast&#x27;) {
+        return this.dataSource.data.filter(row &#x3D;&gt; row.breakfast &#x3D;&#x3D;&#x3D; false).length &#x3D;&#x3D;&#x3D; this.dataSource.data.length;
+      } else if (which &#x3D;&#x3D;&#x3D; &#x27;lunch&#x27;) {
+        return this.dataSource.data.filter(row &#x3D;&gt; row.lunch &#x3D;&#x3D;&#x3D; false).length &#x3D;&#x3D;&#x3D; this.dataSource.data.length;
+      } else if (which &#x3D;&#x3D;&#x3D; &#x27;supper&#x27;) {
+        return this.dataSource.data.filter(row &#x3D;&gt; row.supper &#x3D;&#x3D;&#x3D; false).length &#x3D;&#x3D;&#x3D; this.dataSource.data.length;
+      }
+    }
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle(which): void {
+    console.log(this.dataSource);
+    if (which &#x3D;&#x3D;&#x3D; &#x27;breakfast&#x27;) {
+      if (this.isNotAllSelected(which) || this.isAllEmpty(which)) {
+        this.dataSource.data.forEach(row &#x3D;&gt; row.breakfast &#x3D; true);
+      } else if (this.isAllSelected(which)) {
+        this.dataSource.data.forEach(row &#x3D;&gt; row.breakfast &#x3D; false);
+      }
+    } else if (which &#x3D;&#x3D;&#x3D; &#x27;lunch&#x27;) {
+      if (this.isNotAllSelected(which) || this.isAllEmpty(which)) {
+        this.dataSource.data.forEach(row &#x3D;&gt; row.lunch &#x3D; true);
+      } else if (this.isAllSelected(which)) {
+        this.dataSource.data.forEach(row &#x3D;&gt; row.lunch &#x3D; false);
+      }
+    } else if (which &#x3D;&#x3D;&#x3D; &#x27;supper&#x27;) {
+      if (this.isNotAllSelected(which) || this.isAllEmpty(which)) {
+        this.dataSource.data.forEach(row &#x3D;&gt; row.supper &#x3D; true);
+      } else if (this.isAllSelected(which)) {
+        this.dataSource.data.forEach(row &#x3D;&gt; row.supper &#x3D; false);
+      }
+
+    }
+  }
+
+  changeValue(row: any, value: string): void {
+
+    if (value &#x3D;&#x3D;&#x3D; &#x27;breakfast&#x27;) {
+      row.breakfast &#x3D; !row.breakfast;
+    } else if (value &#x3D;&#x3D;&#x3D; &#x27;lunch&#x27;) {
+      row.lunch &#x3D; !row.lunch;
+    } else if (value &#x3D;&#x3D;&#x3D; &#x27;supper&#x27;) {
+      row.supper &#x3D; !row.supper;
+    }
+  }
+
+  isNotAllSelected(value: string): boolean {
+    return !(this.isAllEmpty(value) || this.isAllSelected(value));
+  }
+
+  applyFilter(event: Event): void {
+    this.filterValue &#x3D; (event.target as HTMLInputElement).value;
+    this.dataSource.filter &#x3D; this.filterValue.trim().toLowerCase();
+
+  }
+
+  makeOrder(): void {
+    const dialogRef &#x3D; this.dialog.open(ConfirmDialogComponent, {
+      minWidth: &#x27;fit-content&#x27;,
+      data: {result: this.dialogResult}
+    });
+
+    dialogRef.afterClosed().subscribe(result &#x3D;&gt; {
+      this.dialogResult &#x3D; result;
+      console.log(&#x27;The dialog was closed&#x27;);
+      console.log(this.dialogResult);
+      if (this.dialogResult) {
+        console.log(this.dialogResult);
+        this.mealService.setPatientMeals(this.patients.content, &#x27;meal-order&#x27;).subscribe(() &#x3D;&gt; {
+          this.snackBar.open(&#x27;Zaktualizowano zamównienia!&#x27;, &#x27;OK&#x27;, {
+            duration: 4000,
+          });
+        });
+      }
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;background&quot;&gt;
+&lt;/div&gt;
+
+&lt;app-top-bar class&#x3D;&quot;topBar&quot;&gt;&lt;/app-top-bar&gt;
+
+
+&lt;div class&#x3D;&quot;frame&quot;&gt;
+  &lt;div class&#x3D;&quot;layout&quot;&gt;
+    &lt;div class&#x3D;&quot;topSite topMargin&quot;&gt;
+      &lt;div&gt;
+        &lt;button mat-icon-button title&#x3D;&quot;Wróć&quot; class&#x3D;&quot;backBtn&quot; (click)&#x3D;&quot;goBack()&quot; color&#x3D;&quot;secondary&quot;&gt;
+          &lt;mat-icon class&#x3D;&quot;bottomIcon&quot;&gt;keyboard_backspace&lt;/mat-icon&gt;
+        &lt;/button&gt;
+        &lt;p class&#x3D;&quot;iconSignature&quot;&gt;Wróć&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;button mat-raised-button color&#x3D;&quot;primary&quot; class&#x3D;&quot;orderBtn&quot; (click)&#x3D;&quot;makeOrder()&quot;&gt;Zamów&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;Wyszukiwarka&lt;/mat-label&gt;
+      &lt;input matInput (keyup)&#x3D;&quot;applyFilter($event)&quot; placeholder&#x3D;&quot;np. Kowalski&quot; #input&gt;
+    &lt;/mat-form-field&gt;
+
+    &lt;div class&#x3D;&quot;mat-elevation-z8&quot;&gt;
+      &lt;table mat-table [dataSource]&#x3D;&quot;dataSource&quot; class&#x3D;&quot;mat-elevation-z8&quot; matSort&gt;
+
+        &lt;ng-container matColumnDef&#x3D;&quot;pesel&quot;&gt;
+          &lt;th mat-header-cell *matHeaderCellDef&gt; Pesel &lt;/th&gt;
+          &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt; {{element.pesel}} &lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;ng-container matColumnDef&#x3D;&quot;firstName&quot;&gt;
+          &lt;th mat-header-cell *matHeaderCellDef mat-sort-header&gt; Imię &lt;/th&gt;
+          &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt; {{element.firstName}} &lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;ng-container matColumnDef&#x3D;&quot;lastName&quot;&gt;
+          &lt;th mat-header-cell *matHeaderCellDef mat-sort-header&gt; Nazwisko &lt;/th&gt;
+          &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt; {{element.lastName}} &lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;ng-container matColumnDef&#x3D;&quot;birthDate&quot;&gt;
+          &lt;th mat-header-cell *matHeaderCellDef mat-sort-header&gt; Data urodzenia &lt;/th&gt;
+          &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt; {{element.birthDate}} &lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;ng-container matColumnDef&#x3D;&quot;breakfast&quot;&gt;
+          &lt;th mat-header-cell *matHeaderCellDef&gt;
+            &lt;mat-checkbox (change)&#x3D;&quot;masterToggle(&#x27;breakfast&#x27;)&quot;
+                          [checked]&#x3D;&quot;isAllSelected(&#x27;breakfast&#x27;)&quot;
+                          [indeterminate]&#x3D;&quot;isNotAllSelected(&#x27;breakfast&#x27;)&quot;
+                          color&#x3D;&quot;accent&quot;&gt;
+            &lt;/mat-checkbox&gt; Śniadanie
+          &lt;/th&gt;
+          &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;
+            &lt;mat-checkbox (click)&#x3D;&quot;$event.stopPropagation()&quot;
+                          (change)&#x3D;&quot;changeValue(row, &#x27;breakfast&#x27;)&quot;
+                          [checked]&#x3D;&quot;row.breakfast&#x3D;&#x3D;&#x3D;true&quot;
+                          color&#x3D;&quot;accent&quot;&gt;
+            &lt;/mat-checkbox&gt;
+          &lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;ng-container matColumnDef&#x3D;&quot;lunch&quot;&gt;
+          &lt;th mat-header-cell *matHeaderCellDef&gt;
+            &lt;mat-checkbox (change)&#x3D;&quot;masterToggle(&#x27;lunch&#x27;)&quot;
+                          [checked]&#x3D;&quot;isAllSelected(&#x27;lunch&#x27;)&quot;
+                          [indeterminate]&#x3D;&quot;isNotAllSelected(&#x27;lunch&#x27;)&quot;
+                          color&#x3D;&quot;warn&quot;&gt;
+            &lt;/mat-checkbox&gt; Obiad
+          &lt;/th&gt;
+          &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;
+            &lt;mat-checkbox (click)&#x3D;&quot;$event.stopPropagation()&quot;
+                          (change)&#x3D;&quot;changeValue(row, &#x27;lunch&#x27;)&quot;
+                          [checked]&#x3D;&quot;row.lunch&#x3D;&#x3D;&#x3D;true&quot;
+                          color&#x3D;&quot;warn&quot;&gt;
+            &lt;/mat-checkbox&gt;
+          &lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;ng-container matColumnDef&#x3D;&quot;supper&quot;&gt;
+          &lt;th mat-header-cell *matHeaderCellDef&gt;
+            &lt;mat-checkbox (change)&#x3D;&quot;masterToggle(&#x27;supper&#x27;)&quot;
+                          [checked]&#x3D;&quot;isAllSelected(&#x27;supper&#x27;)&quot;
+                          [indeterminate]&#x3D;&quot;isNotAllSelected(&#x27;supper&#x27;)&quot;
+                          color&#x3D;&quot;primary&quot;&gt;
+            &lt;/mat-checkbox&gt; Kolacja
+          &lt;/th&gt;
+          &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;
+            &lt;mat-checkbox (click)&#x3D;&quot;$event.stopPropagation()&quot;
+                          (change)&#x3D;&quot;changeValue(row, &#x27;supper&#x27;)&quot;
+                          [checked]&#x3D;&quot;row.supper&#x3D;&#x3D;&#x3D;true&quot;
+                          color&#x3D;&quot;primary&quot;&gt;
+            &lt;/mat-checkbox&gt;
+          &lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;tr mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns&quot;&gt;&lt;/tr&gt;
+        &lt;tr mat-row *matRowDef&#x3D;&quot;let row; columns: displayedColumns;&quot;&gt;
+          &lt;!-- Row shown when there is no matching data. --&gt;
+        &lt;tr class&#x3D;&quot;mat-row&quot; *matNoDataRow&gt;
+          &lt;td class&#x3D;&quot;mat-cell&quot; colspan&#x3D;&quot;4&quot;&gt;Brak wyników spełniających kryteria &quot;{{input.value}}&quot;&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+      &lt;mat-paginator [pageSizeOptions]&#x3D;&quot;[5, 10, 25, 100]&quot;&gt;&lt;/mat-paginator&gt;
+    &lt;/div&gt;
+
+
+
+
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./nurse-meals-orders.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.topBar {
+  position: relative;
+}
+
+.topBtn {
+  margin-bottom: 3%;
+}
+
+.background {
+  background-image: url(&quot;src/assets/background.jpg&quot;);
+  background-size: auto;
+  background-repeat: repeat;
+  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+
+.frame {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+
+.layout {
+
+  background: #fafafa;
+  position: relative;
+  flex-direction: column;
+  justify-content: normal;
+  padding: 1rem 2.5rem;
+  height: auto;
+  min-height: 100vh;
+  min-width: fit-content;
+  display: flex;
+  margin-left: 0;
+  margin-right: auto;
+  width: 60vw;
+  font-family: Metropolis, Avenir Next, Helvetica Neue, Arial, sans-serif;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 15%;
+}
+
+
+.example-element-row td {
+  border-bottom-width: 1px;
+}
+
+.topSite {
+  justify-content: space-between;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+}
+
+.choose {
+  display: flex;
+  width: fit-content;
+}
+
+.iconSignature {
+  margin-left: 20px;
+  margin-bottom: 3%;
+}
+
+.bottomIcon {
+  font-size: 64px;
+}
+
+.addBtn {
+  width: fit-content;
+  float: right;
+}
+
+.topMargin {
+  margin-bottom: 5%;
+}
+
+.orderBtn {
+  width: 200px;
+  display: block;
+  float: right;
+  margin-top: 5%;
+  margin-right: 10%;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="background"></div><app-top-bar class="topBar"></app-top-bar><div class="frame">  <div class="layout">    <div class="topSite topMargin">      <div>        <button mat-icon-button title="Wróć" class="backBtn" (click)="goBack()" color="secondary">          <mat-icon class="bottomIcon">keyboard_backspace</mat-icon>        </button>        <p class="iconSignature">Wróć</p>      </div>      <button mat-raised-button color="primary" class="orderBtn" (click)="makeOrder()">Zamów</button>    </div>    <mat-form-field>      <mat-label>Wyszukiwarka</mat-label>      <input matInput (keyup)="applyFilter($event)" placeholder="np. Kowalski" #input>    </mat-form-field>    <div class="mat-elevation-z8">      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>        <ng-container matColumnDef="pesel">          <th mat-header-cell *matHeaderCellDef> Pesel </th>          <td mat-cell *matCellDef="let element"> {{element.pesel}} </td>        </ng-container>        <ng-container matColumnDef="firstName">          <th mat-header-cell *matHeaderCellDef mat-sort-header> Imię </th>          <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>        </ng-container>        <ng-container matColumnDef="lastName">          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nazwisko </th>          <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>        </ng-container>        <ng-container matColumnDef="birthDate">          <th mat-header-cell *matHeaderCellDef mat-sort-header> Data urodzenia </th>          <td mat-cell *matCellDef="let element"> {{element.birthDate}} </td>        </ng-container>        <ng-container matColumnDef="breakfast">          <th mat-header-cell *matHeaderCellDef>            <mat-checkbox (change)="masterToggle(\'breakfast\')"                          [checked]="isAllSelected(\'breakfast\')"                          [indeterminate]="isNotAllSelected(\'breakfast\')"                          color="accent">            </mat-checkbox> Śniadanie          </th>          <td mat-cell *matCellDef="let row">            <mat-checkbox (click)="$event.stopPropagation()"                          (change)="changeValue(row, \'breakfast\')"                          [checked]="row.breakfast===true"                          color="accent">            </mat-checkbox>          </td>        </ng-container>        <ng-container matColumnDef="lunch">          <th mat-header-cell *matHeaderCellDef>            <mat-checkbox (change)="masterToggle(\'lunch\')"                          [checked]="isAllSelected(\'lunch\')"                          [indeterminate]="isNotAllSelected(\'lunch\')"                          color="warn">            </mat-checkbox> Obiad          </th>          <td mat-cell *matCellDef="let row">            <mat-checkbox (click)="$event.stopPropagation()"                          (change)="changeValue(row, \'lunch\')"                          [checked]="row.lunch===true"                          color="warn">            </mat-checkbox>          </td>        </ng-container>        <ng-container matColumnDef="supper">          <th mat-header-cell *matHeaderCellDef>            <mat-checkbox (change)="masterToggle(\'supper\')"                          [checked]="isAllSelected(\'supper\')"                          [indeterminate]="isNotAllSelected(\'supper\')"                          color="primary">            </mat-checkbox> Kolacja          </th>          <td mat-cell *matCellDef="let row">            <mat-checkbox (click)="$event.stopPropagation()"                          (change)="changeValue(row, \'supper\')"                          [checked]="row.supper===true"                          color="primary">            </mat-checkbox>          </td>        </ng-container>        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>        <tr mat-row *matRowDef="let row; columns: displayedColumns;">          <!-- Row shown when there is no matching data. -->        <tr class="mat-row" *matNoDataRow>          <td class="mat-cell" colspan="4">Brak wyników spełniających kryteria "{{input.value}}"</td>        </tr>      </table>      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>    </div>    </div>  </div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChangePersonDataComponent', 'selector': 'app-change-person-data'},{'name': 'ConfirmDialogComponent', 'selector': 'app-confirm-dialog'},{'name': 'DietitianAddRestrictionComponent', 'selector': 'app-dietitian-add-restriction'},{'name': 'DietitianMainComponent', 'selector': 'app-dietitian-main'},{'name': 'DietitianPatientDetailsComponent', 'selector': 'app-dietitian-patient-details'},{'name': 'KitchenMainComponent', 'selector': 'app-kitchen-main'},{'name': 'LoginSiteComponent', 'selector': 'app-login-site'},{'name': 'MovementMainComponent', 'selector': 'app-movement-main'},{'name': 'NurseMainComponent', 'selector': 'app-nurse-main'},{'name': 'NurseMealsOrdersComponent', 'selector': 'app-nurse-meals-orders'},{'name': 'NursePatientDetailsComponent', 'selector': 'app-nurse-patient-details'},{'name': 'NursePatientRegistrationComponent', 'selector': 'app-nurse-patient-registration'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PatientMovementAddWorkerComponent', 'selector': 'app-patient-movement-add-worker'},{'name': 'PatientMovementLogsComponent', 'selector': 'app-patient-movement-logs'},{'name': 'PatientMovementWorkerDetailsComponent', 'selector': 'app-patient-movement-worker-details'},{'name': 'PatientMovementWorkerPasswordChangeComponent', 'selector': 'app-patient-movement-worker-password-change'},{'name': 'PatientMovementWorkersComponent', 'selector': 'app-patient-movement-workers'},{'name': 'TopBarComponent', 'selector': 'app-top-bar'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'NurseMealsOrdersComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'NurseMealsOrdersComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
